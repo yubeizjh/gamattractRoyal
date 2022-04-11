@@ -1,4 +1,4 @@
-
+<!-- 需要加密码验证 maybe or权限 -->
 <div class="block mb-5 my-5 m-auto w-1/2">
   <h1 class="text-2xl my-2">Last 5 insights</h1>
   <button class="my-2 block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={infoRefresh}>
