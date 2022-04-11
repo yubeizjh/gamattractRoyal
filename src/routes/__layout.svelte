@@ -3,7 +3,7 @@
   import {page} from "$app/stores";
 
   const nav = [
-    {title: "主页", path: "/"},
+    {title: "手气不错", path: "/"},
     {title: "收藏", path: "/gallery"},
     {title: "留言", path: "/message"}
   ]

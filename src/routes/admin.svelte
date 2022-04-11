@@ -31,6 +31,7 @@
 </div>
 
 <div class="m-auto w-1/2">
+
   <form on:submit|preventDefault={() => submit = true}>  
     <input class="block w-full mb-3 required" type="text" bind:value={sGame} placeholder="游戏名">
     <input class="block w-full mb-3 required" type="text" bind:value={sLevel} placeholder="关卡">
