@@ -1,3 +1,4 @@
+<!-- 需要加密码验证 maybe or权限 -->
 <script>
   import { Editor, Viewer } from 'bytemd'
 
