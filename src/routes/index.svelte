@@ -6,9 +6,9 @@
   <!-- 按钮选择 -->
   <div class="grid grid-cols-4 gap-3 place-items-center">
     <!-- 标签 -->
-    <p class="mt-5 text-sm w-full"><em>切换类别  ▼</em></p>
+    <p class="mt-5 text-sm w-full"><em>切换  ▼</em></p>
     <p class="mt-5 text-sm col-span-2 w-full"><em>拖动显示数量  ▼</em></p>
-    <p class="mt-5 text-sm w-full"><em>手气不错  ▼</em></p>
+    <p class="mt-5 text-sm w-full"><em>随机  ▼</em></p>
     <!-- 类别切换 -->
     <div class="w-full">
       <label class="w-full group swap transition mt-2 py-3 px-5 rounded-2xl bg-zinc-400 border-4 border-zinc-400 hover:bg-zinc-800 hover:border-white">
@@ -31,7 +31,7 @@
       </div>
     </div>
     <!-- 手气不错 -->
-    <div class="w-full text-black">
+    <div class="w-full">
       <button on:click={refreshData} class="w-full group swap transition mt-2 py-3 px-5 rounded-2xl bg-zinc-400 border-4 border-zinc-400 hover:bg-zinc-800 hover:border-white hover:text-white">
         <span class="group-hover:hidden">手气不错</span>
         <span class="hidden group-hover:block">随机刷新</span>

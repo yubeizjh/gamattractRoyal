@@ -64,7 +64,7 @@
 
 <script>
 import { empty, trusted } from "svelte/internal";
-import { supabase } from "../supabaseClient"
+import { supabase } from "../../supabaseClient"
 
 
 //刷新页面

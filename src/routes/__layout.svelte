@@ -1,6 +1,7 @@
 <script>
   import "../app.css";
   import {page} from "$app/stores";
+  import 'bytemd/dist/index.css'
 
   const nav = [
     {title: "手气不错", path: "/"},
@@ -28,5 +29,13 @@
 <slot />
 
 <footer class="p-6 bg-zinc-800">
-  <p class="text-center text-white"><em>Just for gamers</em></p>
+  <div class="grid grid-cols-4">
+    <div></div>
+    <div class="col-span-2">
+      <p class="text-center text-white"><em>Just for gamers</em></p>
+    </div>
+    <div class="opacity-0 place-self-end">
+      <a href="/adminSet/admin"> 123 </a>
+    </div>
+  </div>
 </footer>
