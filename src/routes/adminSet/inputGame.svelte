@@ -25,6 +25,7 @@
   <div class="m-auto w-1/2">
   
     <form on:submit|preventDefault={() => submit = true}>  
+      <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
       <input class="block w-full mb-3 required" type="text" bind:value={inGame} placeholder="游戏名">
       <input class="block w-full mb-3 required" type="text" bind:value={inImgUrl} placeholder="图片路径">
       <input class="block w-full mb-3 required" type="text" bind:value={inImgUrlType} placeholder="图片格式">
@@ -89,9 +90,12 @@
   let inHrefUrl = null
   
   let submit = false
+
+  let securityCode = null
   
   //提交数据
   async function sendData() {
+    if (securityCode != "zjh") throw new Error("密码错了兄弟")
     inImgUrl = "/stockImg/" + inImgUrl + "." + inImgUrlType
     const { data, error } = await supabase
       .from('stock')

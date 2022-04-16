@@ -32,7 +32,8 @@
 
 <div class="m-auto w-1/2">
 
-  <form on:submit|preventDefault={() => submit = true}>  
+  <form class="text-black" on:submit|preventDefault={() => submit = true}>  
+    <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
     <input class="block w-full mb-3 required" type="text" bind:value={sGame} placeholder="游戏名">
     <input class="block w-full mb-3 required" type="text" bind:value={sLevel} placeholder="关卡">
     <textarea class="block w-full mb-3 h-32 required" bind:value={iContent} placeholder="内容"></textarea>
@@ -99,8 +100,11 @@ let bImportant = false
 
 let submit = false
 
+let securityCode = null
+
 //提交数据
 async function sendData() {
+  if (securityCode != "zjh") throw new Error("密码错了兄弟")
   const { data, error } = await supabase
     .from('insight')
     .insert([
