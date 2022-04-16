@@ -15,7 +15,7 @@
         <input class="hidden" type="checkbox" bind:checked={isOrdinary}>
         <div class="swap-on group-hover:text-white text-center group-hover:hidden">关卡CASE</div>
         <div class="swap-on group-hover:text-white text-center hidden group-hover:block">切换类别</div>
-        <div class="swap-off group-hover:text-white text-center group-hover:hidden">设计原则</div>
+        <div class="swap-off group-hover:text-white text-center group-hover:hidden text-black">设计原则</div>
         <div class="swap-off group-hover:text-white text-center hidden group-hover:block">切换类别</div>
       </label>
     </div>
@@ -33,7 +33,7 @@
     <!-- 手气不错 -->
     <div class="w-full">
       <button on:click={refreshData} class="w-full group swap transition mt-2 py-3 px-5 rounded-2xl bg-zinc-400 border-4 border-zinc-400 hover:bg-zinc-800 hover:border-white hover:text-white">
-        <span class="group-hover:hidden">手气不错</span>
+        <span class="group-hover:hidden text-black">手气不错</span>
         <span class="hidden group-hover:block">随机刷新</span>
       </button>
     </div>

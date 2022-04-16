@@ -2,8 +2,9 @@
     import {page} from "$app/stores";
 
     const nav = [
-        {title: "录入insight", path: "/adminSet/admin"},
-        {title: "录入blog", path: "/adminSet/editor"}
+        {title: "录入insight", path: "/adminSet/inputInsight"},
+        {title: "录入game", path: "/adminSet/inputGame"},
+        {title: "录入blog", path: "/adminSet/inputBlog"}
     ]
 </script>
 

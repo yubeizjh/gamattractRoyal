@@ -35,7 +35,7 @@
       <p class="text-center text-white"><em>Just for gamers</em></p>
     </div>
     <div class="opacity-0 place-self-end">
-      <a href="/adminSet/admin"> 123 </a>
+      <a href="/adminSet/inputInsight"> 123 </a>
     </div>
   </div>
 </footer>

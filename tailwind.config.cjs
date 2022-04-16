@@ -15,12 +15,20 @@ const config = {
     themes: [
       {
         mytheme: {
-          primary: "#A1A1AA", // zinc-400
-          secondary: "#52525B", // zinc-600
-          accent: "#37cdbe", // 未定义
-          neutral: "#3d4451", // 未定义
-          "base-100": "#ffffff",
-        },
+          primary: "#A1A1AA",
+          "primary-content": "#ffffff",
+          secondary: "#52525B",
+          "secondary-content": "#ffffff",
+          accent: "#1FB2A5",
+          "accent-content": "#ffffff",
+          neutral: "#191D24",
+          "neutral-focus": "#111318",
+          "neutral-content": "#A6ADBB",
+          "base-100": "#2A303C",
+          "base-200": "#242933",
+          "base-300": "#20252E",
+          "base-content": "#ffffff",
+        }
       }
     ],
   },

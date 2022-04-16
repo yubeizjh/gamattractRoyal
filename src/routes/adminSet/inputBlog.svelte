@@ -1,0 +1,20 @@
+<!-- 需要加密码验证 maybe or权限 -->
+
+<template>
+<Editor {value} {plugins} on:change={handleChange} />
+</template>
+
+<!-- others -->
+
+<script>
+import { Editor, Viewer } from 'bytemd'
+
+let value
+const plugins = [
+    // Add more plugins here
+]
+
+function handleChange(e) {
+    value = e.detail.value
+}
+</script>
