@@ -1,3 +1,5 @@
+<!-- 可选择随机还是按顺序 -->
+<!-- 游戏发售时间 -->
 <!-- 游戏列表，处理行列数量 -->
 {#await getAllGallery()}
     <DefaultLoading />
@@ -9,11 +11,11 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
     {#each dataFull.slice(0,currentItems) as item}
-        <div class="group transform rounded overflow-hidden hover:scale-75 border-4 border-white/0 duration-500 hover:border-4 hover:border-white hover:rounded-2xl">
-            <img src="/stockImg/genshin.jpeg" alt="Shoes" class="rounded-md"/>
+        <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+            <img src={item.imgUrl} alt={item.game}/>
             <!-- text -->
-            <a href="/" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center bg-black/80">            
-                <p class="text-3xl">123</p>
+            <a href="/" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
+                
             </a>
         </div>
     {/each}
@@ -42,7 +44,7 @@ let dataFull = []
 
 async function getAllGallery () {
     const { data , error } = await supabase
-    .from ('random_insight')
+    .from ('stock')
     .select ()
     if (error) throw new Error(error.message)
     return data 

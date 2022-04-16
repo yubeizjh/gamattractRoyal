@@ -24,9 +24,10 @@
   
   <div class="m-auto w-1/2">
   
-    <form on:submit|preventDefault={() => submit = true}>  
+    <form class="text-black" on:submit|preventDefault={() => submit = true}>  
       <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
       <input class="block w-full mb-3 required" type="text" bind:value={inGame} placeholder="游戏名">
+      <input class="block w-full mb-3 required" type="text" bind:value={inYear} placeholder="发售年代">
       <input class="block w-full mb-3 required" type="text" bind:value={inImgUrl} placeholder="图片路径">
       <input class="block w-full mb-3 required" type="text" bind:value={inImgUrlType} placeholder="图片格式">
       <label class="block w-full mb-3 text-white">
@@ -84,8 +85,9 @@
   }
   
   let inGame = null
+  let inYear = null
   let inImgUrl = null
-  let inImgUrlType = "jpg"
+  let inImgUrlType = "jpeg"
   let inAvailable = false
   let inHrefUrl = null
   
@@ -102,6 +104,7 @@
       .insert([
         { 
           'game': inGame,
+          'year': inYear,
           'imgUrl': inImgUrl,
           'available': inAvailable,
           'hrefUrl': inHrefUrl
