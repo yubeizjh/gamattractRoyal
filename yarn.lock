@@ -173,18 +173,6 @@
     "lodash.isplainobject" "^4.0.6"
     "lodash.merge" "^4.6.2"
 
-"@types/codemirror@^5.60.5":
-  "integrity" "sha512-TiECZmm8St5YxjFUp64LK0c8WU5bxMDt9YaAek1UqUb9swrSCoJhh92fWu1p3mTEqlHjhB5sY7OFBhWroJXZVg=="
-  "resolved" "https://registry.npmjs.org/@types/codemirror/-/codemirror-5.60.5.tgz"
-  "version" "5.60.5"
-  dependencies:
-    "@types/tern" "*"
-
-"@types/estree@*":
-  "integrity" "sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ=="
-  "resolved" "https://registry.npmjs.org/@types/estree/-/estree-0.0.51.tgz"
-  "version" "0.0.51"
-
 "@types/node@*":
   "integrity" "sha512-UxDxWn7dl97rKVeVS61vErvw086aCYhDLyvRQZ5Rk65rZKepaFdm53GeqXaKBuOhED4e9uWq34IC3TdSdJJ2Gw=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-17.0.23.tgz"
@@ -211,13 +199,6 @@
   "version" "1.43.1"
   dependencies:
     "@types/node" "*"
-
-"@types/tern@*":
-  "integrity" "sha512-JAUw1iXGO1qaWwEOzxTKJZ/5JxVeON9kvGZ/osgZaJImBnyjyn0cjovPsf6FNLmyGY8Vw9DoXZCMlfMkMwHRWg=="
-  "resolved" "https://registry.npmjs.org/@types/tern/-/tern-0.23.4.tgz"
-  "version" "0.23.4"
-  dependencies:
-    "@types/estree" "*"
 
 "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
   "integrity" "sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ=="
@@ -329,13 +310,6 @@
   "version" "4.0.6"
   dependencies:
     "node-gyp-build" "^4.3.0"
-
-"bytemd@^1.13.1":
-  "integrity" "sha512-Sd8vq6/viHlkFmgZBgDRvnPiY5nomSqexirJ3hUDKbg+0MILMJkXNtXAxp25aT0hpG6jOm4asO8rSOxVTdZF0w=="
-  "resolved" "https://registry.npmjs.org/bytemd/-/bytemd-1.13.1.tgz"
-  "version" "1.13.1"
-  dependencies:
-    "@types/codemirror" "^5.60.5"
 
 "callsites@^3.0.0":
   "integrity" "sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ=="

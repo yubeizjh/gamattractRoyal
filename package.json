@@ -24,7 +24,6 @@
   "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^1.33.2",
-    "bytemd": "^1.13.1",
     "daisyui": "^2.13.6"
   }
 }
