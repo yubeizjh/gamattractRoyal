@@ -5,10 +5,10 @@
   let pageTitle = null;
 
   const nav = [
-    {title: "留言", path: "/message"},
-    {title: "手气不错", path: "/lucky"},
+    {title: "文章", path: "/"},
     {title: "干货", path: "/gallery"},
-    {title: "文章", path: "/"}
+    {title: "手气不错", path: "/lucky"},
+    {title: "留言", path: "/message"}
   ]
 
 </script>
@@ -22,8 +22,9 @@
         <strong>GAM<br>A<br>TTRACT</strong>
       </p>
     </a>
+
     <!-- P2 -->
-    <ul class="flex flex-1 flex-row-reverse text-xl">
+    <ul class="hidden sm:flex flex-1 text-xl justify-end">
       {#each nav as item}
         <li class=" mr-2 ">
           {#if $page.url.pathname === item.path}
@@ -36,6 +37,28 @@
         </li>
       {/each}
     </ul>
+
+    <!-- P3 -->
+    <div class="flex flex-1 sm:hidden justify-end">
+      <div class="dropdown dropdown-end justify-items-end">
+        <!-- svelte-ignore a11y-label-has-associated-control -->
+        <label tabindex="0" class="btn btn-circle btn-outline">
+          <i class="fa-solid fa-bars fa-xl"></i>
+        </label>
+        <!-- items -->
+        <ul tabindex="0" class="dropdown-content menu p-2 mt-5 -mr-4 shadow bg-zinc-700 w-screen">
+
+          {#each nav as item}
+          <li>
+              <a href={item.path}>{item.title}</a>
+          </li>
+          {/each}
+
+        </ul>
+      </div>
+
+    </div>
+
   </div>
 </nav>
 
