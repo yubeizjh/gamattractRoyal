@@ -78,7 +78,6 @@
   </div>
   
   <script>
-  
   import DefaultLoading from "./DIY/defaultLoading.svelte";
   import { dataset_dev, each, empty, trusted } from "svelte/internal"
   import { supabase } from "../supabaseClient"
@@ -117,4 +116,6 @@
   }
   </script>
   
-  
+  <svelte:head>
+    <title>手气不错 | Gamattract</title>
+</svelte:head>

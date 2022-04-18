@@ -10,9 +10,10 @@
     <!-- body -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
-    <!-- 
+    <!-- load more
     {#each items.slice(0,currentItems) as item}
     -->
+
     {#each paginatedItems as item}
         <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
             <img src={item.imgUrl} alt={item.game}/>
@@ -118,3 +119,7 @@ function catchData (tmp){
   text-decoration-thickness: 3px;
 }
 </style>
+
+<svelte:head>
+    <title>游戏廊 | Gamattract</title>
+</svelte:head>

@@ -1,4 +1,13 @@
-<div class="w-10/12 m-auto">
+<script>
+    export let title;
+</script>
+
+<svelte:head>
+    <title>{title} | Gamattract </title>
+</svelte:head>
+
+
+<div class="w-10/12 md:w-3/4 lg:w-1/2 m-auto">
     <article class="prose my-20">
         <slot />
     </article>
