@@ -24,6 +24,7 @@
   "type": "module",
   "dependencies": {
     "@supabase/supabase-js": "^1.33.2",
-    "daisyui": "^2.13.6"
+    "daisyui": "^2.13.6",
+    "svelte-paginate": "^0.0.1"
   }
 }

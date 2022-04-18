@@ -19,7 +19,7 @@
                     <p href={item.blogUrl} class="text-4xl underline underline-offset-[12px] leading-relaxed group-hover:no-underline">
                         <strong>{item.title}</strong></p>
                     <p class="mt-5">{item.detail}</p>
-                    <p class="mt-5"><em>{item.updateTime}</em></p>
+                    <p class="mt-5"><i class="fa fa-clock-o" aria-hidden="true"></i>  <em>{item.updateTime}</em></p>
                 </a>
             </div>
         {/each}
