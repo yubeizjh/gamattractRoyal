@@ -6,7 +6,7 @@
     <title>{title} | Gamattract </title>
 </svelte:head>
 
-<div class="w-10/12 md:w-3/4 m-auto grid grid-cols-1  ">
+<div class="w-10/12 md:w-3/4 m-auto grid grid-cols-1">
     
     <article class="prose my-20 place-self-center w-full">
        <slot />
