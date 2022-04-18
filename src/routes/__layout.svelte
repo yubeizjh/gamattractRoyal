@@ -4,8 +4,10 @@
   import 'bytemd/dist/index.css'
 
   const nav = [
-    {title: "手气不错", path: "/"},
+    {title: "Bienvenue", path: "/"},
     {title: "收藏", path: "/gallery"},
+    {title: "文章", path: "/blog"},
+    {title: "手气不错", path: "/lucky"},
     {title: "留言", path: "/message"}
   ]
 </script>
