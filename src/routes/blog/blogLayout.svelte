@@ -6,13 +6,13 @@
     <title>{title} | Gamattract </title>
 </svelte:head>
 
-
-<div class="w-10/12 md:w-3/4 lg:w-1/2 m-auto">
-    <article class="prose my-20">
-        <slot />
+<div class="w-10/12 md:w-3/4 m-auto grid grid-cols-1  ">
+    
+    <article class="prose my-20 place-self-center w-full">
+       <slot />
     </article>
 
-    <div class="my-10 grid place-content-center ">
+    <div class="mb-10 place-self-center">
         <a href="/blog"> 
             <button class="transition mt-2 p-2 bg-zinc-800 border-4 border-black/0 hover:bg-zinc-800 hover:border-white hover:text-white">
                 back to list
