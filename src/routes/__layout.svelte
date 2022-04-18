@@ -1,7 +1,6 @@
 <script>
   import "../app.css";
   import {page} from "$app/stores";
-  import 'bytemd/dist/index.css'
 
   const nav = [
     {title: "Bienvenue", path: "/"},
