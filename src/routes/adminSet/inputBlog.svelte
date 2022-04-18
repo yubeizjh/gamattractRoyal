@@ -28,6 +28,7 @@
         <input class="block w-full mb-3 required" type="text" bind:value={inTitle} placeholder="题目">
         <input class="block w-full mb-3 required" type="text" bind:value={inDetail} placeholder="详情">
         <input class="block w-full mb-3 required" type="text" bind:value={inUrl} placeholder="路径">
+        <input class="block w-full mb-3 required" type="text" bind:value={inTime} placeholder="发布时间">
 
         <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={() => submit = false}>
         提交
@@ -96,6 +97,7 @@ return data
 let inTitle = null
 let inDetail = null
 let inUrl = null
+let inTime = null
 
 let submit = false
 
@@ -104,14 +106,15 @@ let securityCode = null
 //提交数据
 async function sendData() {
 if (securityCode != "zjh") throw new Error("密码错了兄弟")
-inUrl = "/blog/articles/" + inUrl + ".md"
+inUrl = "/blog/articles/" + inUrl
 const { data, error } = await supabase
     .from('blog')
     .insert([
     { 
         'title': inTitle,
         'detail': inDetail,
-        'blogUrl': inUrl
+        'blogUrl': inUrl,
+        'updateTime': inTime
     }
     ])
 if (error) throw new Error(error.message) 
