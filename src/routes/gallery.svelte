@@ -83,9 +83,9 @@ function catchData (tmp){
 .my-nav :global(.pagination-nav) {
   display: flex;
   justify-content: center;
-  background: hsl(0, 0%, 8%);
+  background: #27272a;
   border-radius: 3px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.3);
 }
 .my-nav :global(.option) {
   padding: 10px;
@@ -121,5 +121,5 @@ function catchData (tmp){
 </style>
 
 <svelte:head>
-    <title>游戏廊 | Gamattract</title>
+    <title>干货 | Gamattract</title>
 </svelte:head>
