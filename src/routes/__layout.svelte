@@ -68,7 +68,7 @@
   <div class="grid grid-cols-4 justify-items-center">
     <div></div>
     <div class="col-span-2 grid justify-items-center items-center">
-      <i class="fa-solid fa-gamepad fa-xl fa-beat" style="color: #d6d3d1"></i>
+      <i class="fa-solid fa-gamepad fa-xl" style="color: #d6d3d1"></i>
       <p class="text-stone-300 mt-3 text-xl"><em>To gamers</em></p>
     </div>
     <div class="opacity-0 place-self-end">

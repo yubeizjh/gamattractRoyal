@@ -4,7 +4,9 @@
     const nav = [
         {title: "录入insight", path: "/adminSet/inputInsight"},
         {title: "录入game", path: "/adminSet/inputGame"},
-        {title: "录入blog", path: "/adminSet/inputBlog"}
+        {title: "录入blog", path: "/adminSet/inputBlog"},
+        {title: "录入图片", path: "/adminSet/inputGamePic"}
+
     ]
 </script>
 
