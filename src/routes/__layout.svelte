@@ -8,7 +8,8 @@
     {title: "文章", path: "/"},
     {title: "干货", path: "/gallery"},
     {title: "手气不错", path: "/lucky"},
-    {title: "留言", path: "/message"}
+    {title: "留言", path: "/message"},
+    {title: "测试页", path: "/stockPage/mainpage"}
   ]
 
 </script>
