@@ -1,21 +1,31 @@
-{#each meId as mid}
-    <div class="w-5/6 lg:w-2/3 flex justify-center items-start m-auto my-16">
-        <div class="avatar">
-            <div class="w-12 mr-5">
-                <img src={picSrc[mePid[mid]]} alt=""/>
-            </div>
-        </div>
-        <div class="rounded-lg w-full bg-zinc-300">
-            <div class="text-black m-5 mr-3">
-                <div class="flex items-end mb-3">
-                    <p class="text-xl mr-3">{meName[mid]}</p>
-                    <p class="text-zinc-600"><em>{meTime[mid]}</em></p>
+{#if refreshTrigger}  
+{#await getMessage()}
+    <DefaultLoading />
+{:then data}
+
+    {#each data as item}
+        <div class="w-5/6 lg:w-2/3 flex justify-center items-start m-auto my-16">
+            <div class="avatar">
+                <div class="w-12 mr-5">
+                    <img src={picSrc[item.avatarId]} alt=""/>
                 </div>
-                <p>{meComment[mid]}</p>
+            </div>
+            <div class="rounded-lg w-full bg-zinc-300">
+                <div class="text-black m-5 mr-3">
+                    <div class="flex items-end mb-3">
+                        <p class="text-xl mr-3">{item.userName}</p>
+                        <p class="text-zinc-600"><em>{item.created_at}</em></p>
+                    </div>
+                    <p>{item.content}</p>
+                </div>
             </div>
         </div>
-    </div>
-{/each}
+    {/each}
+{:catch error}
+<p>something wrong:</p>
+<pre>{error}</pre>
+{/await}   
+{/if}
 
 {#if avatarChoice}
 <div class="w-full bg-zinc-900 py-5 -mb-10">
@@ -42,23 +52,42 @@
 
     <form class="text-white w-full grid place-items-center" 
         on:submit|preventDefault={() => submit = true}>  
-
-        <input class="placeholder:text-zinc-400 placeholder:italic placeholder:text-center bg-zinc-600 rounded-lg w-full mb-3 required" type="text" bind:value={inName} placeholder="昵称">
-        <textarea class="placeholder:text-zinc-400 placeholder:italic placeholder:text-center bg-zinc-600 rounded-lg w-full mb-3 h-32 required" bind:value={inContent} placeholder="留言"></textarea>
+        <input class="placeholder:text-zinc-400 placeholder:italic placeholder:text-center bg-zinc-600 rounded-lg w-full mb-3 required" type="text" bind:value={inName} placeholder="昵称（可不填）">
+        <textarea class="placeholder:text-zinc-400 placeholder:italic placeholder:text-center bg-zinc-600 rounded-lg w-full mb-3 h-32 required" required bind:value={inContent} placeholder="留言"></textarea>
         <button class="rounded-full w-1/3 bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4" type="submit" value="Submit" on:click={() => submit = false}>
             提交
         </button>  
+
+        <div class="my-3 text-center">
+            {#if submit}
+                {#await sendData()}
+                  <p>发送中...</p>
+                {:then data}
+                  <p class="text-green-600">留言成功</p>
+                {:catch error}
+                  <p class="text-orange-600">留言失败:</p>
+                  <pre>{error}</pre>
+                {/await}
+            {/if}
+        </div>
+
     </form>
 </div>
 
 
+
+
 <script>
-//1
+import DefaultLoading from "./DIY/defaultLoading.svelte";
+import { supabase } from "../supabaseClient"
+import { empty } from "svelte/internal";
+
+//1 userName
+let inName = ''
+//2 content
+let inContent = ''
+//3 avatarId
 let inAvatarNum = 20
-//2
-let inName
-//3
-let inContent
 
 
 let submit
@@ -83,40 +112,62 @@ function decideAvatarChoice(tmpid){
     swtichAvatarChoice()
 }
 
-//1
-let mePid = [
-    1,15,3
-]
+async function getMessage () {
+    const { data , error } = await supabase
+    .from ('message')
+    .select ()
+    .order('id', { ascending: false })
+    if (error) throw new Error(error.message)
+    return data 
+}
 
-//2
-let meName = [
-    "name1",
-    "name2",
-    "name3"
-]
-
-//3
-let meComment = [
-    "朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。朱浚涵是果蝇。",
-    "wxl是果蝇。wxl是果蝇。wxl是果蝇。wxl是果蝇。wxl是果蝇。",
-    "你才是果蝇。"
-]
-
-//4,不需要录入
-let meTime = [
-    "24, Mar, 2022",
-    "25, Apr, 2022",
-    "28, Apr, 2022"
-]
+async function sendData() {
+    if(inAvatarNum == 20) 
+        inAvatarNum = randomAvatarIndex()
+    if(inName == '')
+        inName = '匿名'
+    const { data, error } = await supabase
+      .from('message')
+      .insert([
+        { 
+          'userName': inName,
+          'content': inContent,
+          'avatarId': inAvatarNum
+        }
+      ])
+    if (error) throw new Error(error.message) 
+    infoRefresh()
+    initial()
+    return data
+}
 
 function randomAvatarIndex(){
-    return Math.floor(Math.random() * picSrc.length)
+    return Math.floor(Math.random() * (picSrc.length-1))
 }
+
+function initial(){
+    inName = ''
+    inContent = ''
+    inAvatarNum = 20
+}
+
+//刷新页面
+function infoRefresh_aid(){
+    refreshTrigger = true
+}
+
+function infoRefresh() {
+    refreshTrigger = false;
+    setTimeout(infoRefresh_aid, 10);
+}
+
+//获取数据
+let refreshTrigger = true
 
 </script>
 
 
 
 <svelte:head>
-    <title>留言 | Gamattract</title>
+    <title>树洞 | Gamattract</title>
 </svelte:head>

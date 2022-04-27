@@ -15,7 +15,7 @@
     <div class="w-64 group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
         <img src={tiGameImgUrl} alt={tiGameName}/>
         <!-- text -->
-        <a href="/stockPage/{tiGameDetailUrl}" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
+        <a href={tiGameDetailUrl} class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
         </a>
     </div>
 
@@ -39,8 +39,6 @@
             
         </div>
     </div>
-
-
 </div>
 
 <script>
@@ -54,4 +52,10 @@ let tiBlogDetail = "落实到具体设计"
 let tiBlogUpdateTime = "18 Apr, 2022"
 let tiBlogUrl = "/blog/articles/01具体设计"
 
+
+
 </script>
+
+<svelte:head>
+  <title>Gamattract</title>
+</svelte:head>

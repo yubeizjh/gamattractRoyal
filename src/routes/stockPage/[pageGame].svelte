@@ -39,6 +39,7 @@
                     <div class="h-5 border-b-4 text-2xl text-center">
                         <span class="bg-zinc-800 px-5" >
                             {#if pageMain == '梗图'} xs
+                            {:else if pageMain == '分析'} 文章
                             {:else} {item.type}
                             {/if}
                         </span>
@@ -47,14 +48,21 @@
             {/if}
             <div class="rounded-xl bg-zinc-600 overflow-hidden">
                 <!-- 图片标题 -->
-                <img class="hover:opacity-50" src={item.gameUrl} alt={item.name}/>
-
+                {#if pageMain == '分析'}
+                <a href={item.type} target="_blank">
+                    <img class="hover:opacity-50" src={item.gameUrl} alt={item.name}/>
+                </a>
+                {:else}
+                    <img class="hover:opacity-50" src={item.gameUrl} alt={item.name}/>
+                {/if}
                 {#if pageMain != '梗图'}
 
                 <div class="my-3 flex justify-center items-center">
                     <div class="items-center">
                         <span class="text-xl mr-2">{item.name}</span>
-                        <span>{item.pid}</span>
+                        {#if pageMain != '分析'}
+                            <span>{item.pid}</span>
+                        {/if}
                     </div>
                     <!-- 更改按钮 -->
                     {#if option[item.id] != 1}
@@ -149,8 +157,8 @@ function buildButton(data){
     if (data.物件) pageButton.push("物件")
     if (data.情景) pageButton.push("情景")
     if (data.关卡) pageButton.push("关卡")
-    if (data.梗图) pageButton.push("梗图")
     if (data.分析) pageButton.push("分析")
+    if (data.梗图) pageButton.push("梗图")
     pageMain = pageButton[0]
 }
 
@@ -203,6 +211,9 @@ function getChineseName(tmp) {
 
 //获取数据
 let refreshTrigger = true
+
+
+//const formattedDate = new Date(date).toDateString();
 
 </script>
 
