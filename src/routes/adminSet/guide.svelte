@@ -1,4 +1,4 @@
-<div class="block mb-5 my-5 m-auto w-1/2 leading-10">
+<div class="block mb-5 my-5 m-auto w-1/2 leading-10">    
     <p class="-ml-10 ">
     首页：暂时还没写好动态，等有多个游戏和文章了再说</p>
     1. 改用一个key来选择游戏<br>
