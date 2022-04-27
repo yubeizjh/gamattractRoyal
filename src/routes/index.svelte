@@ -29,6 +29,7 @@ async function getBlogs () {
   const { data , error } = await supabase
       .from ('blog')
       .select ()
+      .eq ('ready',true)
   if (error) throw new Error(error.message)
   return data 
 }

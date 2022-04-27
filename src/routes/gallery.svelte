@@ -1,37 +1,47 @@
 <!-- 可选择随机还是按顺序 -->
 <!-- 游戏发售时间 -->
 <!-- 游戏列表，处理行列数量 -->
+
+<div class="flex justify-center btn-group my-5">
+  {#each pageButton as item}
+      {#if item == pageMain}
+          <button class="btn px-8 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{item}</button>
+      {:else}
+          <button class="btn px-8 text-zinc-200 bg-zinc-900 hover:bg-black" 
+          on:click={() => changePageMain(item)}>{item}</button>
+      {/if}
+  {/each}
+</div>
+
+
+
+{#if refreshTrigger}  
 {#await getAllGallery()}
     <DefaultLoading />
 {:then data}
-    <!-- i don't know how to hideen and get data-->
+
+{#if data.length == 0}
+    <p class="text-center text-3xl mt-12">暂无数据</p>
+{:else}
     <p class="hidden">good Job {catchData(data)}</p>
 
     <!-- body -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
-    <!-- load more
-    {#each items.slice(0,currentItems) as item}
-    -->
-
     {#each paginatedItems as item}
         <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+            {#if pageMain == '施工中'}
+            <img disabled class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
+            <!-- text -->
+            {:else}
             <img src={item.imgUrl} alt={item.game}/>
             <!-- text -->
-            <a href="/" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
-                
+            <a href="/stockPage/{item.name_img}" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
             </a>
+            {/if}
         </div>
     {/each}
     </div>
-    
-    <!-- load more 
-    {#if currentItems < items.length}
-        <div class="flex justify-center mb-3" on:click={ () => currentItems = currentItems + 6 }>
-            <button class="btn">Show more</button>  
-        </div>
-    {/if}
-    -->
 
     <!-- Pagination -->
     <div class="my-nav text-lg">
@@ -44,12 +54,14 @@
             on:setPage="{(e) => currentPage = e.detail.page}"
         />
     </div>
+{/if}
 
 <!-- error -->
 {:catch error}
     <p>something wrong:</p>
     <pre>{error}</pre>
 {/await}
+{/if}
 
 
 <script>
@@ -61,12 +73,17 @@ let currentItems = 6
 let items = []
 let currentPage = 1
 let pageSize = 6
+
 $: paginatedItems = paginate({ items, pageSize, currentPage })
+
+let pageButton = ['物件','情景','关卡','分析','施工中']
+let pageMain = pageButton[0]
 
 async function getAllGallery () {
     const { data , error } = await supabase
     .from ('stock')
     .select ()
+    .eq(pageMain, true)
     if (error) throw new Error(error.message)
     return data 
 }
@@ -75,6 +92,25 @@ function catchData (tmp){
     items = tmp;
     return 0;
 }
+
+
+function changePageMain(main) {
+    pageMain = main;
+    infoRefresh();
+}
+
+//刷新页面
+function infoRefresh_aid(){
+refreshTrigger = true
+}
+
+function infoRefresh() {
+refreshTrigger = false;
+setTimeout(infoRefresh_aid, 10);
+}
+
+//获取数据
+let refreshTrigger = true
 
 </script>
 
