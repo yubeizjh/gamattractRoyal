@@ -2,8 +2,8 @@
 {#await getMessage()}
     <DefaultLoading />
 {:then data}
-
-    {#each data as item}
+    <div class="hidden">{getFullData(data)}</div>
+    {#each fullData.slice(0,currentItem) as item}
         <div class="w-5/6 lg:w-2/3 flex justify-center items-start m-auto my-16">
             <div class="avatar">
                 <div class="w-12 mr-5">
@@ -14,13 +14,29 @@
                 <div class="text-black m-5 mr-3">
                     <div class="flex items-end mb-3">
                         <p class="text-xl mr-3">{item.userName}</p>
-                        <p class="text-zinc-600"><em>{item.created_at}</em></p>
+                        <p class="text-zinc-600"><em>{formularDate(item.created_at)}</em></p>
                     </div>
                     <p>{item.content}</p>
                 </div>
             </div>
         </div>
     {/each}
+
+    {#if currentItem < fullData.length}
+    <div class="w-5/6 lg:w-2/3 flex justify-center items-start m-auto my-16" >
+        <div class="avatar">
+            <div class="w-12 mr-5 opacity-0">
+                <img src={picSrc[0]} alt=""/>
+            </div>
+        </div>
+
+        <button class="flex justify-center m-auto rounded-lg w-full bg-zinc-400 hover:bg-zinc-200 text-zinc-600 py-2 px-2 italic"
+        on:click={() => currentItem = currentItem + 5}>
+            加载更多
+        </button>
+    </div>
+    {/if}
+
 {:catch error}
 <p>something wrong:</p>
 <pre>{error}</pre>
@@ -54,7 +70,7 @@
         on:submit|preventDefault={() => submit = true}>  
         <input class="placeholder:text-zinc-400 placeholder:italic placeholder:text-center bg-zinc-600 rounded-lg w-full mb-3 required" type="text" bind:value={inName} placeholder="昵称（可不填）">
         <textarea class="placeholder:text-zinc-400 placeholder:italic placeholder:text-center bg-zinc-600 rounded-lg w-full mb-3 h-32 required" required bind:value={inContent} placeholder="留言"></textarea>
-        <button class="rounded-full w-1/3 bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4" type="submit" value="Submit" on:click={() => submit = false}>
+        <button class="rounded-full w-1/3 bg-zinc-500 hover:bg-zinc-700 text-white py-2 px-4" type="submit" value="Submit" on:click={() => submit = false}>
             提交
         </button>  
 
@@ -94,9 +110,11 @@ let submit
 
 let avatarChoice = false;
 
-let meId = [0,1,2]
 let picSrc = []
 let pid = []
+
+let fullData = []
+let currentItem = 5
 
 for (let i=0;i<21;i++){
     picSrc[i] = "/avatarImg/"+(i+1).toString()+'.png'
@@ -151,6 +169,13 @@ function initial(){
     inAvatarNum = 20
 }
 
+function formularDate(time){
+    let tmpdate = new Date(time).toDateString();
+    let startStr = tmpdate.indexOf(" ")
+    let endStr = tmpdate.length
+    return tmpdate.substring(startStr,endStr)
+}
+
 //刷新页面
 function infoRefresh_aid(){
     refreshTrigger = true
@@ -163,6 +188,11 @@ function infoRefresh() {
 
 //获取数据
 let refreshTrigger = true
+
+function getFullData(data){
+    fullData = data
+}
+
 
 </script>
 
