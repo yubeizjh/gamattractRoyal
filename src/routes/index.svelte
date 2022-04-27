@@ -1,6 +1,6 @@
 
 
-<div class="w-1/2 place-items-center grid m-auto">
+<div class="w-11/12 place-items-center grid m-auto">
 
     <div class="my-8 w-full">
         <div class="h-5 w-full border-b-2 text-3xl text-center border-white">
@@ -21,7 +21,7 @@
 
     <p class="text-2xl italic my-8 mt-20">~ 文章 ~</p>
 
-    <div>
+    <div class="w-3/4 md:w-1/2 m-auto flex justify-center">
         <a href={tiBlogUrl} class="group" >
             <p href={tiBlogUrl} class="text-4xl underline underline-offset-[12px] leading-relaxed hover:no-underline">
                 <strong>{tiBlogTitle}</strong></p>
