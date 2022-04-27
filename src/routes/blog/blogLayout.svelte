@@ -13,7 +13,7 @@
     </article>
 
     <div class="mb-10 place-self-center">
-        <a href="/"> 
+        <a href="/blog"> 
             <button class="transition mt-2 p-2 bg-zinc-700 border-4 border-black/0 hover:border-white hover:text-white">
                 back to list
             </button>

@@ -5,9 +5,10 @@
   let pageTitle = null;
 
   const nav = [
-    {title: "文章", path: "/"},
+    {title: "看一看", path: "/"},
+    {title: "文章", path: "/blog"},
     {title: "干货", path: "/gallery"},
-    {title: "手气不错beta", path: "/lucky"},
+    {title: "瞟一瞟", path: "/lucky"},
     {title: "留言", path: "/message"}
   ]
 
