@@ -28,8 +28,7 @@
       <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
       <input class="block w-full mb-3 required" type="text" bind:value={inGame} placeholder="游戏名">
       <input class="block w-full mb-3 required" type="text" bind:value={inYear} placeholder="发售年代">
-      <input class="block w-full mb-3 required" type="text" bind:value={inImgUrl} placeholder="图片路径">
-      <input class="block w-full mb-3 required" type="text" bind:value={inImgUrlType} placeholder="图片格式">
+      <input class="block w-full mb-3 required" type="text" bind:value={inImgUrl} placeholder="图片路径（只需要文件名，包含后缀）">
       <label class="block w-full mb-3 text-white">
         <input type="checkbox" bind:checked={inAvailable}>
         是否有内容
@@ -87,7 +86,6 @@
   let inGame = null
   let inYear = null
   let inImgUrl = null
-  let inImgUrlType = "jpeg"
   let inAvailable = false
   let inHrefUrl = null
   
@@ -98,7 +96,7 @@
   //提交数据
   async function sendData() {
     if (securityCode != "zjh") throw new Error("密码错了兄弟")
-    inImgUrl = "/stockImg/" + inImgUrl + "." + inImgUrlType
+    inImgUrl = "/stockImg/" + inImgUrl
     const { data, error } = await supabase
       .from('stock')
       .insert([

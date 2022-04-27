@@ -16,7 +16,7 @@
                         <p class="text-xl mr-3">{item.userName}</p>
                         <p class="text-zinc-600"><em>{formularDate(item.created_at)}</em></p>
                     </div>
-                    <p>{item.content}</p>
+                    <p class="whitespace-pre">{item.content}</p>
                 </div>
             </div>
         </div>

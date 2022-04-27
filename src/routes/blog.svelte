@@ -16,7 +16,7 @@
   {:then data}
       <!-- single page -->
       {#each data as item}
-          <div class="my-28 first:mt-20 last:mb-20">
+          <div class="my-28 first:mt-12 last:mb-20">
               <a href={item.blogUrl} class="group" >
                   <p href={item.blogUrl} class="text-4xl underline underline-offset-[12px] leading-relaxed group-hover:no-underline">
                       <strong>{item.title}</strong></p>

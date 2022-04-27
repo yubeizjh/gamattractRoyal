@@ -2,11 +2,11 @@
     import {page} from "$app/stores";
 
     const nav = [
-        {title: "录入insight", path: "/adminSet/inputInsight"},
-        {title: "录入game", path: "/adminSet/inputGame"},
-        {title: "录入blog", path: "/adminSet/inputBlog"},
-        {title: "录入图片", path: "/adminSet/inputGamePic"}
-
+        {title: "指南", path: "/adminSet/guide"},
+        {title: "灵感", path: "/adminSet/inputInsight"},
+        {title: "游戏", path: "/adminSet/inputGame"},
+        {title: "文章", path: "/adminSet/inputBlog"},
+        {title: "Stock", path: "/adminSet/inputGamePic"}
     ]
 </script>
 

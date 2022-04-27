@@ -27,7 +27,7 @@
         <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
         <input class="block w-full mb-3 required" type="text" bind:value={inTitle} placeholder="题目">
         <input class="block w-full mb-3 required" type="text" bind:value={inDetail} placeholder="详情">
-        <input class="block w-full mb-3 required" type="text" bind:value={inUrl} placeholder="路径">
+        <input class="block w-full mb-3 required" type="text" bind:value={inUrl} placeholder="路径（只需要文件名，不需要后缀）">
         <input class="block w-full mb-3 required" type="text" bind:value={inTime} placeholder="发布时间">
 
         <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={() => submit = false}>

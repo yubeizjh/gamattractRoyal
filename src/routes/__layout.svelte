@@ -8,7 +8,7 @@
     {title: "看一看", path: "/"},
     {title: "干货", path: "/gallery"},
     {title: "文章", path: "/blog"},
-    {title: "瞟一瞟", path: "/lucky"},
+    {title: "瞟一眼", path: "/lucky"},
     {title: "树洞", path: "/message"}
   ]
 

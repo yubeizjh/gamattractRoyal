@@ -16,8 +16,8 @@
 
 <div class="text-black m-auto w-1/2 my-10">
     <form class="text-black" on:submit|preventDefault={() => submit = true}>  
-        <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
-        <input class="block w-full mb-10" type="text" bind:value={gameName} placeholder="游戏名">
+        <input class="block w-full mb-10 required" type="text" bind:value={securityCode} placeholder="CODE">
+        <input class="block w-full mb-3" type="text" bind:value={gameName} placeholder="游戏名">
         <input class="block w-full mb-10" type="text" bind:value={gameUrl} placeholder="路径">
         <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
         <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
@@ -76,6 +76,7 @@ let submit = false
 let securityCode = null
 
 let test = 0;
+
 let gameName = "ZeldaS"
 let gameUrl = "/stockPageImg/skywardSword/";
 //Main+Type+Name+(pid)
