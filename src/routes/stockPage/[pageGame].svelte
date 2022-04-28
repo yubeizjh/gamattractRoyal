@@ -51,7 +51,10 @@
 {:then data} 
     <div class="mx-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 -mt-10">
         <div class="hidden">{getFullData(data)}</div>
+        <!-- 加载更多
         {#each fullData.slice(0,currentItem) as item}
+        -->
+        {#each data as item}
         <!-- 按type添加标题 -->
             {#if item.flag == 1}
                 <div class="mt-10 mb-3 col-span-1 sm:col-span-2 md:col-span-3">
@@ -64,17 +67,32 @@
                         </span>
                     </div>
                 </div>
+                <div class="col-span-1 sm:col-span-2 md:col-span-3 flex m-auto justify-center">
+                    <button class="hover:opacity-50 rounded-xl bg-zinc-600 px-10 py-2 text-xl" 
+                    on:click={() => hiddenTest[item.flag_identity] = !hiddenTest[item.flag_identity]}>
+                    {#if !hiddenTest[item.flag_identity]}
+                        <i class="fa-solid fa-angle-down"></i>
+                    {:else}
+                        <i class="fa-solid fa-angle-up"></i>
+                    {/if}
+                    </button>
+                </div>
             {/if}
+
+            <!-- 从这里开始，需要折叠 -->
+            {#if hiddenTest[item.flag_identity]}
+            <!-- 从这里开始，需要折叠 -->
+            
             <div class="rounded-xl bg-zinc-600 overflow-hidden">
                 <!-- 图片标题 -->
                 {#if pageMain == '分析'}
                 <a href={item.type} target="_blank">
-                    <img class="hover:opacity-50" src={item.gameUrl} alt={item.name}/>
+                    <img class="hover:opacity-50" src={item.finGameUrl} alt={item.name}/>
                 </a>
                 {:else}
                 <!-- 图片 -->
-                    <img class="cursor-pointer hover:opacity-50" src={item.gameUrl} alt={item.name}
-                    on:click={() => openFocus(item.gameUrl,item.name,item.comment_1)}/>
+                    <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
+                    on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}/>
                 {/if}
                 {#if pageMain != '梗图'}
 
@@ -134,9 +152,16 @@
                 {/if}
                 {/if}
             </div>
+
+
+            <!-- 折叠结束 -->
+            {/if}
+            <!-- 折叠结束 -->
+
         {/each}
     </div>
 
+    <!--
     {#if currentItem < fullData.length}
         <div class="w-1/2 md:w-1/3 flex justify-center items-start m-auto my-16" >    
             <button class="flex justify-center m-auto rounded-lg w-full bg-zinc-400 hover:bg-zinc-200 text-white py-2 px-2 italic"
@@ -145,6 +170,7 @@
             </button>
         </div>
     {/if}
+    -->
         
 {:catch error}
     <p>something wrong:</p>
@@ -184,6 +210,9 @@ let pageMain
 let inComment_1
 let option = []
 let startUpdate = []
+
+
+let hiddenTest = []
 
 let chineseName
 

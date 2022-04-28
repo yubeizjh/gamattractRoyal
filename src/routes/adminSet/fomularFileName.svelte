@@ -14,8 +14,12 @@
   <p class="text-3xl text-green-500">等待更新</p>
 {/if}
 
-<button class="bg-white text-black w-1/4" on:click={updateAllData}>
+<button class="bg-white text-black w-1/4 mb-5" on:click={updateAllData}>
   更新数据
+</button>
+
+<button class="bg-white text-black w-1/4 mb-5" on:click={() => tabelDisplay = !tabelDisplay}>
+  显示切换
 </button>
 
 <br>
@@ -34,10 +38,42 @@
   {/if}
 </div>
 
+<!-- 
+{#if tabelDisplay}
+  <div class="ml-5">
+  {#each fullData as item}
+    <div class="flex">
+      <p>mv {item.fileName} {item.newFileName}</p>
+    </div>
+  {/each}
+  </div>
+{/if}
+-->
+
+{#if tabelDisplay}
+<div class="bg-white text-black mt-10 w-1/4">
+  <tabel>
+    <tr>
+      <th>newName</th>
+      <th>oldName</th>
+    </tr>
+    {#each fullData as item}
+    <tr>
+      <td>{item.fileName}</td>
+      <td>{item.newFileName}</td>
+    </tr>
+    {/each}
+  </tabel>
+</div>
+{/if}
+
+
 <script>
 import { supabase } from "../../supabaseClient"
 
 let flag = false;
+
+let tabelDisplay = false
 
 let fullData = []
 let currentLength = 0
@@ -81,7 +117,15 @@ function copyData(item){
 
   fullData[currentLength].fileName = A
 
+
+  let B_start = item.gameUrl.indexOf(".")
+  let B_end = item.gameUrl.length
+  let B = item.gameUrl.substring(B_start,B_end)
+
+  fullData[currentLength].newFileName = id.toString() + B
+
   fullData[currentLength].gameUrl = simpleName(name,id)
+
   currentLength = currentLength + 1
 }
 
