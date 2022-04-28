@@ -27,6 +27,7 @@
     <form class="text-black" on:submit|preventDefault={() => submit = true}>  
       <input class="block w-full mb-3 required" type="text" bind:value={securityCode} placeholder="CODE">
       <input class="block w-full mb-3 required" type="text" bind:value={inGame} placeholder="游戏名">
+      <input class="block w-full mb-3 required" type="text" bind:value={inNameImg} placeholder="开发用名">
       <input class="block w-full mb-3 required" type="text" bind:value={inYear} placeholder="发售年代">
       <input class="block w-full mb-3 required" type="text" bind:value={inImgUrl} placeholder="图片路径（只需要文件名，包含后缀）">
       <label class="block w-full mb-3 text-white">
@@ -88,6 +89,7 @@
   let inImgUrl = null
   let inAvailable = false
   let inHrefUrl = null
+  let inNameImg = null
   
   let submit = false
 
@@ -104,6 +106,7 @@
           'game': inGame,
           'year': inYear,
           'imgUrl': inImgUrl,
+          'name_img': inNameImg,
           'available': inAvailable,
           'hrefUrl': inHrefUrl
         }

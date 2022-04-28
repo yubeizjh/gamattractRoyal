@@ -1,7 +1,4 @@
-
-
 <div class="w-11/12 place-items-center grid m-auto">
-
     <div class="my-8 w-full">
         <div class="h-5 w-full border-b-2 text-3xl text-center border-white">
             <span class="bg-zinc-800 px-5" >
@@ -11,24 +8,43 @@
     </div>
 
     <p class="text-2xl italic my-8 mt-12">~ 干货 ~</p>
-    
-    <div class="w-64 group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
-        <img src={tiGameImgUrl} alt={tiGameName}/>
-        <!-- text -->
-        <a href={tiGameDetailUrl} class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
-        </a>
-    </div>
+
+    {#await getGameInfo()}
+    <DefaultLoading />
+    {:then data}
+        {#each data as item}
+            <div class="w-64 group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+                <img src={item.imgUrl} alt={item.game}/>
+                <!-- text -->
+                <a href="/stockPage/{item.name_img}" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
+                </a>
+            </div>
+        {/each}
+    {:catch error}
+        <p>something wrong:</p>
+        <pre>{error}</pre>
+    {/await}
+
 
     <p class="text-2xl italic my-8 mt-20">~ 文章 ~</p>
 
-    <div class="w-3/4 md:w-1/2 m-auto flex justify-center">
-        <a href={tiBlogUrl} class="group" >
-            <p href={tiBlogUrl} class="text-4xl underline underline-offset-[12px] leading-relaxed hover:no-underline">
-                <strong>{tiBlogTitle}</strong></p>
-            <p class="mt-5">{tiBlogDetail}</p>
-            <p class="mt-5"><i class="fa fa-clock-o" aria-hidden="true"></i>  <em>{tiBlogUpdateTime}</em></p>
-        </a>
-    </div>
+    {#await getBlogInfo()}
+    <DefaultLoading />
+    {:then data}
+        {#each data as item}
+            <div class="w-3/4 md:w-1/2 m-auto flex justify-center">
+                <a href={item.blogUrl} class="group" >
+                    <p href={item.blogUrl} class="text-4xl underline underline-offset-[12px] leading-relaxed hover:no-underline">
+                        <strong>{item.title}</strong></p>
+                    <p class="mt-5">{item.detail}</p>
+                    <p class="mt-5"><i class="fa fa-clock-o" aria-hidden="true"></i>  <em>{item.updateTime}</em></p>
+                </a>
+            </div>
+        {/each}
+    {:catch error}
+        <p>something wrong:</p>
+        <pre>{error}</pre>
+    {/await}
 
     <div class="my-8 mt-20 w-full">
         <div class="h-4 w-full border-b-2 text-center text-lg border-white">
@@ -39,21 +55,34 @@
             
         </div>
     </div>
+
 </div>
 
+
 <script>
-let tiGameName = "塞尔达：御天之剑"
-let tiGameImgUrl = "/stockImg/zeldaS-md.jpeg"
-let tiGameNameForStock = "ZeldaS"
-let tiGameDetailUrl = "/stockPage/" + tiGameNameForStock
+import DefaultLoading from "./DIY/defaultLoading.svelte";
+import { supabase } from "../supabaseClient"
 
-let tiBlogTitle = "开放世界的具体设计"
-let tiBlogDetail = "落实到具体设计"
-let tiBlogUpdateTime = "18 Apr, 2022"
-let tiBlogUrl = "/blog/articles/01具体设计"
+let targetGame = '塞尔达：御天之剑'
+let targetBlog = '开放世界的具体设计'
 
+async function getGameInfo () {
+    const { data , error } = await supabase
+    .from ('stock')
+    .select ()
+    .eq('game', targetGame)
+    if (error) throw new Error(error.message)
+    return data 
+}
 
-
+async function getBlogInfo () {
+    const { data , error } = await supabase
+    .from ('blog')
+    .select ()
+    .eq('title', targetBlog)
+    if (error) throw new Error(error.message)
+    return data 
+}
 </script>
 
 <svelte:head>
