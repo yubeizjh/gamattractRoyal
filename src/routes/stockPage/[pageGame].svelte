@@ -57,15 +57,26 @@
         {#each data as item}
         <!-- 按type添加标题 -->
             {#if item.flag == 1}
-                <div class="mt-10 mb-3 col-span-1 sm:col-span-2 md:col-span-3">
-                    <div class="h-5 border-b-4 text-2xl text-center">
-                        <span class="bg-zinc-800 px-5" >
-                            {#if pageMain == '梗图'} xs
-                            {:else if pageMain == '分析'} 文章
-                            {:else} {item.type}
-                            {/if}
-                        </span>
-                    </div>
+                <div class="my-20 mb-3 col-span-1 sm:col-span-2 md:col-span-3">
+                    {#if hiddenTest[item.flag_identity]}
+                        <div class="h-5 border-b-4 text-2xl text-center">
+                            <span class="bg-zinc-800 px-5" >
+                                {#if pageMain == '梗图'} xs
+                                {:else if pageMain == '分析'} 文章
+                                {:else} {item.type}
+                                {/if}
+                            </span>
+                        </div>
+                    {:else}
+                        <div class="h-5 text-2xl text-center">
+                            <span class="bg-zinc-800 px-5" >
+                                {#if pageMain == '梗图'} xs
+                                {:else if pageMain == '分析'} 文章
+                                {:else} {item.type}
+                                {/if}
+                            </span>
+                        </div>
+                    {/if}
                 </div>
                 <div class="col-span-1 sm:col-span-2 md:col-span-3 flex m-auto justify-center">
                     <button class="hover:opacity-50 rounded-xl bg-zinc-600 px-10 py-2 text-xl" 
