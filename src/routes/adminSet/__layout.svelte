@@ -6,7 +6,8 @@
         {title: "灵感", path: "/adminSet/inputInsight"},
         {title: "文章", path: "/adminSet/inputBlog"},
         {title: "游戏", path: "/adminSet/inputGame"},
-        {title: "Stock", path: "/adminSet/inputGamePic"}
+        {title: "Stock", path: "/adminSet/inputGamePic"},
+        {title: "重命名", path: "/adminSet/fomularFileName"}
     ]
 </script>
 

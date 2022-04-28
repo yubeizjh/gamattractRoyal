@@ -10,6 +10,7 @@
     <p class="-ml-10">
     干货stock：基本成型，后续需要录入游戏按之前的方式</p>
     1. 考虑加入文字描述关卡<br>
+    2. 考虑点击xxx分批加载，但是很难做
     <div class="text-zinc-400 italic">
         Main+Type+Name+(pid)<br>
         Main: 1-关卡；2-物件；3-梗图；4-情景<br>

@@ -280,6 +280,8 @@ function getChineseName(tmp) {
 let refreshTrigger = true
 
 
+
+
 //const formattedDate = new Date(date).toDateString();
 
 </script>
