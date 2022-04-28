@@ -50,8 +50,9 @@
     <DefaultLoading />
 {:then data} 
     <div class="mx-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 -mt-10">
-        {#each data as item}
-            <!-- 按type添加标题 -->
+        <div class="hidden">{getFullData(data)}</div>
+        {#each fullData.slice(0,currentItem) as item}
+        <!-- 按type添加标题 -->
             {#if item.flag == 1}
                 <div class="mt-10 mb-3 col-span-1 sm:col-span-2 md:col-span-3">
                     <div class="h-5 border-b-4 text-2xl text-center">
@@ -135,6 +136,16 @@
             </div>
         {/each}
     </div>
+
+    {#if currentItem < fullData.length}
+        <div class="w-1/2 md:w-1/3 flex justify-center items-start m-auto my-16" >    
+            <button class="flex justify-center m-auto rounded-lg w-full bg-zinc-400 hover:bg-zinc-200 text-white py-2 px-2 italic"
+            on:click={() => currentItem = currentItem + 5}>
+                加载更多
+            </button>
+        </div>
+    {/if}
+        
 {:catch error}
     <p>something wrong:</p>
     <pre>{error}</pre>
@@ -175,6 +186,13 @@ let option = []
 let startUpdate = []
 
 let chineseName
+
+let fullData = []
+let currentItem = 5
+
+function getFullData(data){
+    fullData = data
+}
 
 let focusSwitch = false
 let focusUrl = ''
