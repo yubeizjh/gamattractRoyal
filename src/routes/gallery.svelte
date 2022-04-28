@@ -2,12 +2,12 @@
 <!-- 游戏发售时间 -->
 <!-- 游戏列表，处理行列数量 -->
 
-<div class="flex justify-center btn-group my-5">
+<div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
   {#each pageButton as item}
       {#if item == pageMain}
-          <button class="btn px-8 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{item}</button>
+          <button class="btn w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{item}</button>
       {:else}
-          <button class="btn px-8 text-zinc-200 bg-zinc-900 hover:bg-black" 
+          <button class="btn w-1/5 text-zinc-200 bg-zinc-900 hover:bg-black" 
           on:click={() => changePageMain(item)}>{item}</button>
       {/if}
   {/each}
