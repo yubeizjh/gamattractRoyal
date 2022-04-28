@@ -10,9 +10,17 @@
     <p class="-ml-10">
     干货stock：基本成型，后续需要录入游戏按之前的方式</p>
     1. 考虑加入文字描述关卡<br>
-    2. 考虑点击xxx分批加载，但是很难做
     <div class="text-zinc-400 italic">
-        Main+Type+Name+(pid)<br>
+        【图片处理顺序】<br>
+        1000px长边，质量3-><br>
+        中文名录入-><br>
+        格式化-><br>
+        获得csv-><br>
+        本地改文件名(waitinglist中)，记得备份<br>
+        ---------<br>
+    </div>
+    <div class="text-zinc-400 italic">
+        【Main+Type+Name+(pid)】<br>
         Main: 1-关卡；2-物件；3-梗图；4-情景<br>
         类型+沙漠+仙人掌.jpeg<br>
         类型+沙漠+仙人掌 (2).jpeg<br>
