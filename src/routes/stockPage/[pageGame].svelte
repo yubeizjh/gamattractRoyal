@@ -134,7 +134,11 @@
                 <!-- 图片内容 -->
                 {#if item.comment_1 != null}
                     <div class="text-center mb-3 mx-2">
-                        <span>{item.comment_1}</span>
+                        {#if tmpComment[item.id] == null}
+                            <span>{item.comment_1}</span>
+                        {:else}
+                            <span>{tmpComment[item.id]}</span>
+                        {/if}
                     </div>
                 {/if}
                 <!-- 修改框 -->
@@ -154,6 +158,7 @@
                                 <p>Updating...</p>
                             {:then data}
                                 <p class="text-green-600">Success.</p>
+                                <p class="hidden">{initComment(item.id)}</p>
                             {:catch error}
                                 <p class="text-orange-600">Something went wrong while fetching the data:</p>
                                 <pre>{error}</pre>
@@ -230,6 +235,8 @@ let chineseName
 let fullData = []
 let currentItem = 5
 
+let tmpComment = []
+
 function getFullData(data){
     fullData = data
 }
@@ -288,7 +295,19 @@ async function updateComment (tmp_id,comment) {
     return data 
 }
 
+function initComment (tmp_id){
+    tmpComment[tmp_id] = inComment_1
+    inComment_1 = ''
+    openComment(tmp_id, 0)
+}
+
 function openComment(i,status) {
+    if (status == 1){
+        for (let j=0;j<option.length;j++)
+            if(i!=j)
+                option[j] = 0
+        inComment_1 = ''
+    }
     option[i] = status
     if (status == 0) startUpdate[i] = 0;
 }
