@@ -73,7 +73,7 @@
       <p class="text-stone-300 mt-3 text-xl"><em>To gamers</em></p>
     </div>
     <div class="opacity-0 place-self-end">
-      <a href="/adminSet/inputInsight"> 123 </a>
+      <a href="/adminSet/guide"> 123 </a>
     </div>
   </div>
 </footer>

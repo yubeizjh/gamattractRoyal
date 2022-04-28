@@ -1,3 +1,21 @@
+<!-- 点击放大 -->
+{#if focusSwitch}
+<div class="z-20 bg-black/95 fixed top-0 w-screen h-screen flex items-center justify-center" on:click={closeFocus}>
+    <button class="btn btn-circle fixed top-10 right-10" on:click={closeFocus}>
+        <i class="fa-solid fa-xmark fa-2xl"></i>
+    </button>
+    <div class="w-11/12 lg:w-3/4 m-auto grid place-content-center">
+        <img src={focusUrl} alt=''>
+        {#if focusTitle != '0'}
+            <p class="mt-5 text-white text-xl text-center">{focusTitle}</p>
+        {/if}
+        {#if focusComment != null}
+            <p class="mt-5 text-white text-center">{focusComment}</p>
+        {/if}
+    </div>
+</div>
+{/if}
+
 <!-- 一级：选择类型：关卡-物件-情景-梗图 -->
 <!-- 有限类别，分别构筑四个表，限制关键字提取 -->
 
@@ -53,7 +71,9 @@
                     <img class="hover:opacity-50" src={item.gameUrl} alt={item.name}/>
                 </a>
                 {:else}
-                    <img class="hover:opacity-50" src={item.gameUrl} alt={item.name}/>
+                <!-- 图片 -->
+                    <img class="cursor-pointer hover:opacity-50" src={item.gameUrl} alt={item.name}
+                    on:click={() => openFocus(item.gameUrl,item.name,item.comment_1)}/>
                 {/if}
                 {#if pageMain != '梗图'}
 
@@ -128,6 +148,18 @@
 <pre>{error}</pre>
 {/await}
 
+
+<!-- Modal for full size images on click
+<div id="modal01" class="w3-modal w3-black" style="padding-top:0" alt="" on:click={onClickClose}>
+    <span class="w3-button w3-black w3-xlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+        <img src={useSrc} id="img01" alt="empty" class="w3-image">
+        <p id="caption"></p>
+    </div>
+</div>
+-->
+
+
 <script>
 import {page} from '$app/stores'
 import DefaultLoading from "../DIY/defaultLoading.svelte";
@@ -143,6 +175,23 @@ let option = []
 let startUpdate = []
 
 let chineseName
+
+let focusSwitch = false
+let focusUrl = ''
+let focusTitle = ''
+let focusComment = ''
+
+function closeFocus(){
+    focusUrl = focusTitle = focusComment = ''
+    focusSwitch = false
+}
+
+function openFocus(url, title, comment){
+    focusUrl = url
+    focusTitle = title
+    focusComment = comment
+    focusSwitch = true
+}
 
 async function getGameInfo () {
     const { data , error } = await supabase
