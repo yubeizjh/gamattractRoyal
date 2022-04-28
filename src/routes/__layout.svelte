@@ -12,6 +12,12 @@
     {title: "树洞", path: "/message"}
   ]
 
+  let smNavFlag = false
+
+  function smNavSwitch(){
+    smNavFlag = !smNavFlag
+  }
+
 </script>
 
 <nav class="p-4 bg-zinc-800">
@@ -43,22 +49,22 @@
     <div class="flex flex-1 sm:hidden justify-end">
       <div class="dropdown dropdown-end justify-items-end">
         <!-- svelte-ignore a11y-label-has-associated-control -->
-        <label tabindex="0" class="btn btn-circle btn-outline">
+        <label tabindex="0" class="btn btn-circle btn-outline" on:click={smNavSwitch}>
           <i class="fa-solid fa-bars fa-xl"></i>
         </label>
         <!-- items -->
+        {#if smNavFlag}
         <ul tabindex="0" class="dropdown-content menu p-2 mt-5 -mr-4 shadow bg-zinc-700 w-screen">
-
           {#each nav as item}
           <li>
               <a href={item.path}>{item.title}</a>
           </li>
           {/each}
-
         </ul>
+        {/if}
       </div>
-
     </div>
+    <!-- P3 end -->
 
   </div>
 </nav>
