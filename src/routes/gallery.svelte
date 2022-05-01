@@ -29,7 +29,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
     {#each paginatedItems as item}
-        <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+        <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white">
             {#if pageMain == '施工中'}
             <img disabled class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
             <!-- text -->
