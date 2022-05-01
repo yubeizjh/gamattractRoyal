@@ -30,15 +30,15 @@
 
     {#each paginatedItems as item}
         {#if pageMain == '施工中'}
-        <div
-        class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
-          <img class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
-        </div>
+            <div
+            class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+              <img class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
+            </div>
         {:else}
-        <a href="/stockPage/{item.name_img}"
-        class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
-          <img src={item.imgUrl} alt={item.game}/>
-        </a>
+            <a href="/stockPage/{item.name_img}"
+            class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+              <img src={item.imgUrl} alt={item.game}/>
+            </a>
         {/if}
 
         <!-- 
