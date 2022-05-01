@@ -13,12 +13,10 @@
     <DefaultLoading />
     {:then data}
         {#each data as item}
-            <div class="w-64 group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
-                <img src={item.imgUrl} alt={item.game}/>
-                <!-- text -->
-                <a href="/stockPage/{item.name_img}" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
-                </a>
-            </div>
+            <a href="/stockPage/{item.name_img}"
+            class="w-64 overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+              <img src={item.imgUrl} alt={item.game}/>
+            </a>
         {/each}
     {:catch error}
         <p>something wrong:</p>
