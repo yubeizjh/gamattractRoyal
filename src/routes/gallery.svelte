@@ -29,17 +29,21 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
     {#each paginatedItems as item}
-        <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white">
+        <a href="/stockPage/{item.name_img}"
+        class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+          <img src={item.imgUrl} alt={item.game}/>
+        </a>
+        <!-- 
+        <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
             {#if pageMain == '施工中'}
             <img disabled class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
-            <!-- text -->
             {:else}
             <img src={item.imgUrl} alt={item.game}/>
-            <!-- text -->
             <a href="/stockPage/{item.name_img}" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
             </a>
             {/if}
         </div>
+        -->
     {/each}
     </div>
 
