@@ -27,13 +27,15 @@
 <div>
   {#if startUpdate}
     {#each fullData as item}
-      {#await updateDate(item.id, item.gameUrl)}
-          <p class="mb-3">{item.id}/{fullData.length} Updating...</p>
-      {:then data}
-          <p class="text-green-600 mb-3">{item.id}/{fullData.length} Success.</p>
-      {:catch error}
-          <p class="text-orange-600">Something went wrong while fetching the data:</p>
-      {/await}
+      {#if item.gameUrl != 'text'}
+        {#await updateDate(item.id, item.gameUrl)}
+            <p class="mb-3">{item.id}/{fullData.length} Updating...</p>
+        {:then data}
+            <p class="text-green-600 mb-3">{item.id}/{fullData.length} Success.</p>
+        {:catch error}
+            <p class="text-orange-600">Something went wrong while fetching the data:</p>
+        {/await}
+      {/if}
     {/each}
   {/if}
 </div>
@@ -111,20 +113,32 @@ function copyData(item){
   let name = fullData[currentLength].gameUrl
   let id = fullData[currentLength].id
 
-  let A_start = item.gameUrl.lastIndexOf('/') + 1
-  let A_end = item.gameUrl.length
-  let A = item.gameUrl.substring(A_start,A_end)
+  if (name != 'text'){
+  
+    let A_start = item.gameUrl.lastIndexOf('/') + 1
+    let A_end = item.gameUrl.length
+    let A = item.gameUrl.substring(A_start,A_end)
 
-  fullData[currentLength].fileName = A
+    fullData[currentLength].fileName = A
 
 
-  let B_start = item.gameUrl.indexOf(".")
-  let B_end = item.gameUrl.length
-  let B = item.gameUrl.substring(B_start,B_end)
+    let B_start = item.gameUrl.indexOf(".")
+    let B_end = item.gameUrl.length
+    let B = item.gameUrl.substring(B_start,B_end)
 
-  fullData[currentLength].newFileName = id.toString() + B
+    fullData[currentLength].newFileName = id.toString() + B
 
-  fullData[currentLength].gameUrl = simpleName(name,id)
+    fullData[currentLength].gameUrl = simpleName(name,id)
+
+  }
+
+  else {
+
+    fullData[currentLength].newFileName = 'text'
+
+    fullData[currentLength].gameUrl = 'text'
+  }
+
 
   currentLength = currentLength + 1
 }

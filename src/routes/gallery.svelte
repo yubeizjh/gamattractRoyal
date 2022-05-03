@@ -5,10 +5,10 @@
 <div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
   {#each pageButton as item}
       {#if item == pageMain}
-          <button class="btn w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{item}</button>
+          <button class="btn w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
       {:else}
           <button class="btn w-1/5 text-zinc-200 bg-zinc-900 hover:bg-black" 
-          on:click={() => changePageMain(item)}>{item}</button>
+          on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
       {/if}
   {/each}
 </div>
@@ -40,18 +40,6 @@
               <img src={item.imgUrl} alt={item.game}/>
             </a>
         {/if}
-
-        <!-- 
-        <div class="group overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
-            {#if pageMain == '施工中'}
-            <img disabled class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
-            {:else}
-            <img src={item.imgUrl} alt={item.game}/>
-            <a href="/stockPage/{item.name_img}" class="hidden group-hover:grid rounded-xl absolute inset-0 place-content-center">            
-            </a>
-            {/if}
-        </div>
-        -->
     {/each}
     </div>
 
@@ -88,8 +76,15 @@ let pageSize = 6
 
 $: paginatedItems = paginate({ items, pageSize, currentPage })
 
-let pageButton = ['物件','情景','关卡','分析','施工中']
+let pageButton = ['物件','情景','关卡','分析']
 let pageMain = pageButton[0]
+
+
+let pageButtonAsName = []
+pageButtonAsName['物件'] = '物件'
+pageButtonAsName['情景'] = '情景'
+pageButtonAsName['关卡'] = '小POI'
+pageButtonAsName['分析'] = '分析'
 
 async function getAllGallery () {
     const { data , error } = await supabase

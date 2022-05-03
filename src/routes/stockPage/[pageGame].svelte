@@ -5,7 +5,9 @@
         <i class="fa-solid fa-xmark fa-2xl"></i>
     </button>
     <div class="w-11/12 lg:w-3/4 m-auto grid place-content-center">
-        <img src={focusUrl} alt=''>
+        {#if focusUrl != 'text'}
+            <img src={focusUrl} alt=''>
+        {/if}
         {#if focusTitle != '0'}
             <p class="mt-5 text-white text-xl text-center">{focusTitle}</p>
         {/if}
@@ -26,15 +28,15 @@
         <div class="hidden">{buildButton(predata)}</div>
         <div class="hidden">{getChineseName(predata.name)}</div>
         
-        <p class="text-center text-3xl mt-y"><em>~ {predata.game} ~</em></p>
+        <p class="text-center text-3xl my-5 mb-7"><em>~ {predata.game} ~</em></p>
 
         <div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
             {#each pageButton as item}
                 {#if item == pageMain}
-                    <button class="btn px-8 w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{item}</button>
+                    <button class="btn px-8 w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
                 {:else}
                     <button class="btn px-8 w-1/5 text-zinc-200 bg-zinc-900 hover:bg-black" 
-                    on:click={() => changePageMain(item)}>{item}</button>
+                    on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
                 {/if}
             {/each}
         </div>
@@ -98,18 +100,42 @@
                 <!-- 图片标题 -->
                 {#if pageMain == '分析'}
                 <a href={item.type} target="_blank">
-                    <img class="hover:opacity-50" src={item.finGameUrl} alt={item.name}/>
+                    <!-- TEXT分支 -->
+                    {#if item.finGameUrl == 'text'}
+                        <div class="relative">
+                            <img class="hover:opacity-80" src="/stockPageImg/textBackground.jpg" alt={item.name}>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <p class="text-white text-xl"> {item.name} </p>
+                            </div>
+                        </div>
+                    {:else}
+                        <img class="hover:opacity-50" src={item.finGameUrl} alt={item.name}/>
+                    {/if}
+                    <!-- end TEXT分支 -->
                 </a>
                 {:else}
                 <!-- 图片 -->
-                    <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
-                    on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}/>
+                    {#if item.finGameUrl == 'text'}
+                        <div class="relative"
+                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}>
+                            <img class="hover:opacity-80" src="/stockPageImg/textBackground.jpg" alt={item.name}>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <p class="text-white text-xl"> {item.name} </p>
+                            </div>
+                        </div>
+                    {:else}
+                        <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
+                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}/>
+                    {/if}
                 {/if}
+
                 {#if pageMain != '梗图'}
 
                 <div class="my-3 flex justify-center items-center">
                     <div class="items-center">
-                        <span class="text-xl mr-2">{item.name}</span>
+                        {#if item.finGameUrl != 'text'}
+                            <span class="text-xl mr-2">{item.name}</span>
+                        {/if}
                         {#if pageMain != '分析'}
                             <span>{item.pid}</span>
                         {/if}
@@ -236,6 +262,14 @@ let fullData = []
 let currentItem = 5
 
 let tmpComment = []
+
+
+let pageButtonAsName = []
+pageButtonAsName['物件'] = '物件'
+pageButtonAsName['情景'] = '情景'
+pageButtonAsName['关卡'] = '小POI'
+pageButtonAsName['分析'] = '分析'
+pageButtonAsName['梗图'] = '233'
 
 function getFullData(data){
     fullData = data
