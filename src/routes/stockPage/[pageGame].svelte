@@ -244,6 +244,9 @@ import {page} from '$app/stores'
 import DefaultLoading from "../DIY/defaultLoading.svelte";
 import { supabase } from "../../supabaseClient"
 
+// @ts-ignore
+import {pageStore} from "../stores"
+
 const pageGame = $page.params.pageGame
 
 let pageButton = []
@@ -253,6 +256,7 @@ let inComment_1
 let option = []
 let startUpdate = []
 
+let fromAnotherPage = $pageStore
 
 let hiddenTest = []
 
@@ -264,12 +268,6 @@ let currentItem = 5
 let tmpComment = []
 
 
-let pageButtonAsName = []
-pageButtonAsName['物件'] = '物件'
-pageButtonAsName['情景'] = '情景'
-pageButtonAsName['关卡'] = '小POI'
-pageButtonAsName['分析'] = '分析'
-pageButtonAsName['梗图'] = '233'
 
 function getFullData(data){
     fullData = data
@@ -301,14 +299,38 @@ async function getGameInfo () {
     return data 
 }
 
+
+//----------------------------------
+//pageButton的名字
+
+let pageButtonAsName = []
+pageButtonAsName['物件'] = '物件'
+pageButtonAsName['情景'] = '情景'
+pageButtonAsName['关卡'] = '小POI'
+pageButtonAsName['分析'] = '分析'
+pageButtonAsName['梗图'] = '233'
+
 function buildButton(data){
     if (data.物件) pageButton.push("物件")
     if (data.情景) pageButton.push("情景")
     if (data.关卡) pageButton.push("关卡")
     if (data.分析) pageButton.push("分析")
     if (data.梗图) pageButton.push("梗图")
-    pageMain = pageButton[0]
+    
+    let flag = false;
+    for (let i=0;i<pageButton.length;i++){
+        if (pageButton[i] == fromAnotherPage)
+            flag = true
+    }
+
+    if (flag)
+        pageMain = fromAnotherPage
+    else
+        pageMain = pageButton[0]
 }
+
+//END
+//-----------------------------------
 
 async function getStock () {
     const { data , error } = await supabase

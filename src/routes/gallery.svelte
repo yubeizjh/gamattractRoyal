@@ -69,22 +69,34 @@ import DefaultLoading from "./DIY/defaultLoading.svelte";
 import { supabase } from "../supabaseClient"
 import { paginate, DarkPaginationNav, PaginationNav } from 'svelte-paginate'
 
+// @ts-ignore
+import {pageStore} from "./stores"
+
 let currentItems = 6
 let items = []
 let currentPage = 1
 let pageSize = 6
 
+function toAnotherPage(){
+  pageStore.set(pageMain)
+}
+
 $: paginatedItems = paginate({ items, pageSize, currentPage })
+
+//----------------------------------
+//pageButton的名字
 
 let pageButton = ['物件','情景','关卡','分析']
 let pageMain = pageButton[0]
-
 
 let pageButtonAsName = []
 pageButtonAsName['物件'] = '物件'
 pageButtonAsName['情景'] = '情景'
 pageButtonAsName['关卡'] = '小POI'
 pageButtonAsName['分析'] = '分析'
+
+//END
+//-----------------------------------
 
 async function getAllGallery () {
     const { data , error } = await supabase
@@ -103,6 +115,7 @@ function catchData (tmp){
 
 function changePageMain(main) {
     pageMain = main;
+    toAnotherPage()
     infoRefresh();
 }
 
