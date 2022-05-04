@@ -5,12 +5,14 @@
         <i class="fa-solid fa-xmark fa-2xl"></i>
     </button>
     <div class="w-11/12 lg:w-3/4 m-auto grid place-content-center">
-        {#if focusUrl != 'text'}
+        {#if focusUrl != null}
             <img src={focusUrl} alt=''>
         {/if}
+
         {#if focusTitle != '0'}
             <p class="mt-5 text-white text-xl text-center">{focusTitle}</p>
         {/if}
+        
         {#if focusComment != null}
             <p class="mt-5 text-white text-center">{focusComment}</p>
         {/if}
@@ -101,7 +103,7 @@
                 {#if pageMain == '分析'}
                 <a href={item.type} target="_blank">
                     <!-- TEXT分支 -->
-                    {#if item.finGameUrl == 'text'}
+                    {#if item.finGameUrl == null}
                         <div class="relative">
                             <img class="hover:opacity-80" src="/stockPageImg/textBackground.jpg" alt={item.name}>
                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -115,7 +117,7 @@
                 </a>
                 {:else}
                 <!-- 图片 -->
-                    {#if item.finGameUrl == 'text'}
+                    {#if item.finGameUrl == null}
                         <div class="relative"
                         on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}>
                             <img class="hover:opacity-80" src="/stockPageImg/textBackground.jpg" alt={item.name}>
@@ -133,10 +135,10 @@
 
                 <div class="my-3 flex justify-center items-center">
                     <div class="items-center">
-                        {#if item.finGameUrl != 'text'}
+                        {#if item.finGameUrl != null}
                             <span class="text-xl mr-2">{item.name}</span>
                         {/if}
-                        {#if pageMain != '分析'}
+                        {#if item.pid != 1}
                             <span>{item.pid}</span>
                         {/if}
                     </div>
@@ -313,9 +315,9 @@ pageButtonAsName['结构'] = '结构'
 pageButtonAsName['地形'] = '地形'
 
 function buildButton(data){
-    if (data.结构) pageButton.push("结构")
-    if (data.情景) pageButton.push("情景")
     if (data.关卡) pageButton.push("关卡")
+    if (data.情景) pageButton.push("情景")
+    if (data.结构) pageButton.push("结构")
     if (data.物件) pageButton.push("物件")
     if (data.地形) pageButton.push("地形")
     //if (data.分析) pageButton.push("分析")

@@ -20,9 +20,6 @@
     {#each data as item}
          <p class="hidden">{pushItem(item)}</p>
     {/each}
-    
-
-    
 
     <div class="text-black m-auto w-1/2 my-10">
         <form class="text-black" on:submit|preventDefault={() => submit = true}>  
@@ -42,14 +39,33 @@
             {/if}
 
             <input class="block w-full mb-3 bg-orange-200" type="text" bind:value={gameName} placeholder="代号：选择上面的游戏名">
-
             <input class="block w-full mb-10 bg-orange-200" type="text" bind:value={gameUrl} placeholder="路径：选择上面的游戏名">
 
-            <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
-            <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
-            <input class="block w-full mb-3" type="text" bind:value={rawString[2]} placeholder="行3">
-            <input class="block w-full mb-3" type="text" bind:value={rawString[3]} placeholder="行4">
-            <input class="block w-full mb-3" type="text" bind:value={rawString[4]} placeholder="行5">
+            <button class="bg-orange-600 mb-5 place-content-center grid m-auto w-1/4" on:click={switchIsText}>切换为文字</button>
+
+            <!-- 
+            let textMain = '结构'
+            let textType = '综合'
+            let textName = ''
+            let textPid = 1
+            let textComment = ''
+            -->
+
+            {#if isText}
+                <p class="text-white mb-3">关卡<br>情景<br>结构<br>物件<br>地形</p>
+                <input class="block w-full mb-3" type="text" bind:value={textMain} placeholder="Main：结构">
+                <input class="block w-full mb-3" type="text" bind:value={textType} placeholder="Type：综合">
+                <input class="block w-full mb-3" type="text" bind:value={textName} placeholder="你想说什么">
+                <input class="block w-full mb-3" type="text" bind:value={textPid} placeholder="pid一般都是1">
+                <input class="block w-full mb-3" type="text" bind:value={textComment} placeholder="你想附加什么">
+            {:else}
+                <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
+                <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
+                <input class="block w-full mb-3" type="text" bind:value={rawString[2]} placeholder="行3">
+                <input class="block w-full mb-3" type="text" bind:value={rawString[3]} placeholder="行4">
+                <input class="block w-full mb-3" type="text" bind:value={rawString[4]} placeholder="行5">
+            {/if}
+
             <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={submitF}>
             提交
             </button>  
@@ -63,20 +79,30 @@
     <pre>{error}</pre>
 {/await}
 
-
-
 <div class="my-3 text-center">
     {#if submit}
-        {#each myId as item}
-            {#await sendData(item)}
-            <p>Sending data...</p>
+        {#if isText}
+            {#await sendDataText()}
+                <p>Sending data...</p>
             {:then data}
-            <p class="text-green-600">Successfully sent data.</p>
+                <p class="text-green-600">Successfully sent data.</p>
+                <button on:click={initText} class="p-5 bg-green-500">初始化一下</button>
             {:catch error}
-            <p class="text-orange-600">Something went wrong while sending the data:</p>
-            <pre>{error}</pre>
-            {/await}
-        {/each}
+                <p class="text-orange-600">Something went wrong while sending the data:</p>
+                <pre>{error}</pre>
+            {/await}        
+        {:else}
+            {#each myId as item}
+                {#await sendData(item)}
+                <p>Sending data...</p>
+                {:then data}
+                <p class="text-green-600">Successfully sent data.</p>
+                {:catch error}
+                <p class="text-orange-600">Something went wrong while sending the data:</p>
+                <pre>{error}</pre>
+                {/await}
+            {/each}
+        {/if}
     {/if}
   </div>
 
@@ -131,6 +157,8 @@ let bindGame = '';
 let bindGamelast = '';
 let bindImgName = '';
 
+let isText = false;
+
 function getBindImgGame(){
 
     for (let i=0;i<fullGameList.length;i++){
@@ -150,6 +178,10 @@ let rawString = [];
 
 let fullGameList = []
 let nowLength = 0
+
+function switchIsText(){
+    isText = !isText
+}
 
 function pushItem(item){
     fullGameList[nowLength] = item
@@ -212,7 +244,8 @@ function initRaw() {
 }
 
 function submitF() {
-    getResult();
+    if (!isText)
+        getResult();
     submit = false;
 }
 
@@ -232,6 +265,36 @@ async function sendData(i) {
     ])
   if (error) throw new Error(error.message) 
   return data
+}
+
+
+let textMain = '结构'
+let textType = '综合'
+let textName = ''
+let textPid = 1
+let textComment = ''
+
+async function sendDataText() {
+  if (securityCode != "zjh") throw new Error("密码错了兄弟")
+  const { data, error } = await supabase
+    .from('stockImg')
+    .insert([
+      { 
+        'gameName': gameName,
+        'main': textMain,
+        'type': textType,
+        'name': textName,
+        'pid': textPid,
+        'comment_1': textComment
+      }
+    ])
+  if (error) throw new Error(error.message) 
+  return data
+}
+
+function initText() {
+    textName = ''
+    textComment = ''
 }
 
 async function getGameData() {
