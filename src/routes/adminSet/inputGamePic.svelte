@@ -14,23 +14,55 @@
 </div>
 -->
 
-<div class="text-black m-auto w-1/2 my-10">
-    <form class="text-black" on:submit|preventDefault={() => submit = true}>  
-        <input class="block w-full mb-10 required" type="text" bind:value={securityCode} placeholder="CODE">
-        <input class="block w-full mb-3" type="text" bind:value={gameName} placeholder="游戏名">
-        <input class="block w-full mb-10" type="text" bind:value={gameUrl} placeholder="路径">
-        <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
-        <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
-        <input class="block w-full mb-3" type="text" bind:value={rawString[2]} placeholder="行3">
-        <input class="block w-full mb-3" type="text" bind:value={rawString[3]} placeholder="行4">
-        <input class="block w-full mb-3" type="text" bind:value={rawString[4]} placeholder="行5">
-        <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={submitF}>
-        提交
-        </button>  
-        <button class="mt-10 block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={initRaw}>
-            初始化</button>
-    </form>
-</div>
+{#await getGameData()}
+    fetching...
+{:then data}
+    {#each data as item}
+         <p class="hidden">{pushItem(item)}</p>
+    {/each}
+    
+
+    
+
+    <div class="text-black m-auto w-1/2 my-10">
+        <form class="text-black" on:submit|preventDefault={() => submit = true}>  
+            <input class="block w-full mb-10 required" type="text" bind:value={securityCode} placeholder="CODE">
+
+            <input class="placeholder:text-red-600 bg-orange-300 mb-3" id="type" type="text" bind:value={bindGame} list="typelist" placeholder="选择">
+            <datalist id="typelist">
+                {#each fullGameList as item}
+                    <option>{item.game}</option>
+                {/each}
+            </datalist>
+        
+            {#if bindGame != bindGamelast}
+                <button class="bg-orange-800" on:click={getBindImgGame}>异议！！</button>
+            {:else}
+                <p class="bg-green-600 -mt-3 mb-3">要清空，就刷新</p>
+            {/if}
+
+            <input class="block w-full mb-3 bg-orange-200" type="text" bind:value={gameName} placeholder="代号：选择上面的游戏名">
+
+            <input class="block w-full mb-10 bg-orange-200" type="text" bind:value={gameUrl} placeholder="路径：选择上面的游戏名">
+
+            <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
+            <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
+            <input class="block w-full mb-3" type="text" bind:value={rawString[2]} placeholder="行3">
+            <input class="block w-full mb-3" type="text" bind:value={rawString[3]} placeholder="行4">
+            <input class="block w-full mb-3" type="text" bind:value={rawString[4]} placeholder="行5">
+            <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={submitF}>
+            提交
+            </button>  
+            <button class="mt-10 block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={initRaw}>
+                初始化</button>
+        </form>
+    </div>
+
+{:catch error}
+    <p>something wrong:</p>
+    <pre>{error}</pre>
+{/await}
+
 
 
 <div class="my-3 text-center">
@@ -77,8 +109,9 @@ let securityCode = null
 
 let test = 0;
 
-let gameName = "ZeldaS"
-let gameUrl = "/stockPageImg/skywardSword/";
+let gameName = ""
+let gameUrl = "";
+
 //Main+Type+Name+(pid)
 //Main: 1-关卡；2-物件；3-梗图；4-情景
 
@@ -91,7 +124,37 @@ let resultName = [];
 let resultPid = [];
 let myId = [];
 
+let countI = 0;
+let countJ = 0;
+
+let bindGame = '';
+let bindGamelast = '';
+let bindImgName = '';
+
+function getBindImgGame(){
+
+    for (let i=0;i<fullGameList.length;i++){
+        if(bindGame == fullGameList[i].game){
+            bindImgName = fullGameList[i].name_img
+        }
+    }
+
+    bindGamelast = bindGame
+    gameName = bindImgName
+    gameUrl = '/stockPageImg/'+bindImgName+'/'
+    if (gameName == "ZeldaS")
+        gameUrl = '/stockPageImg/skywardSword/'
+}
+
 let rawString = [];
+
+let fullGameList = []
+let nowLength = 0
+
+function pushItem(item){
+    fullGameList[nowLength] = item
+    nowLength = nowLength + 1
+}
 
 function getResult(){
     for (let i=0; i<rawString.length; i++){
@@ -169,6 +232,15 @@ async function sendData(i) {
     ])
   if (error) throw new Error(error.message) 
   return data
+}
+
+async function getGameData() {
+    const {data,error} = await supabase
+        .from ('stock')
+        .select()
+        .not('name_img','eq', null)
+    if (error) throw new Error(error.message) 
+    return data
 }
 
 </script>

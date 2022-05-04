@@ -5,6 +5,8 @@
 
     <p class="-ml-10">
     干货游戏gallery：基本成型</p>
+    game:游戏名称<br>
+    name_img:游戏代号<br>
     <br>
 
     <p class="-ml-10">
@@ -21,7 +23,7 @@
     </div>
     <div class="text-zinc-400 italic">
         【Main+Type+Name+(pid)】<br>
-        Main: 1-关卡；2-物件；3-梗图；4-情景<br>
+        Main: 1-关卡；2-物件；3-梗图；4-情景;5-结构；6-地形<br>
         类型+沙漠+仙人掌.jpeg<br>
         类型+沙漠+仙人掌 (2).jpeg<br>
     </div>

@@ -307,16 +307,20 @@ let pageButtonAsName = []
 pageButtonAsName['物件'] = '物件'
 pageButtonAsName['情景'] = '情景'
 pageButtonAsName['关卡'] = '小POI'
-pageButtonAsName['分析'] = '分析'
+//pageButtonAsName['分析'] = '分析'
 pageButtonAsName['梗图'] = '233'
+pageButtonAsName['结构'] = '结构'
+pageButtonAsName['地形'] = '地形'
 
 function buildButton(data){
-    if (data.物件) pageButton.push("物件")
+    if (data.结构) pageButton.push("结构")
     if (data.情景) pageButton.push("情景")
     if (data.关卡) pageButton.push("关卡")
-    if (data.分析) pageButton.push("分析")
+    if (data.物件) pageButton.push("物件")
+    if (data.地形) pageButton.push("地形")
+    //if (data.分析) pageButton.push("分析")
     if (data.梗图) pageButton.push("梗图")
-    
+
     let flag = false;
     for (let i=0;i<pageButton.length;i++){
         if (pageButton[i] == fromAnotherPage)

@@ -35,7 +35,7 @@
               <img class="saturate-0 hover:cursor-not-allowed" src={item.imgUrl} alt={item.game}/>
             </div>
         {:else}
-            <a href="/stockPage/{item.name_img}"
+            <a on:click={toAnotherPage} href="/stockPage/{item.name_img}"
             class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
               <img src={item.imgUrl} alt={item.game}/>
             </a>
@@ -86,14 +86,17 @@ $: paginatedItems = paginate({ items, pageSize, currentPage })
 //----------------------------------
 //pageButton的名字
 
-let pageButton = ['物件','情景','关卡','分析']
+//let pageButton = ['物件','情景','关卡','分析']
+let pageButton = ['结构','情景','关卡','物件','地形']
 let pageMain = pageButton[0]
 
 let pageButtonAsName = []
 pageButtonAsName['物件'] = '物件'
 pageButtonAsName['情景'] = '情景'
 pageButtonAsName['关卡'] = '小POI'
-pageButtonAsName['分析'] = '分析'
+pageButtonAsName['结构'] = '结构'
+pageButtonAsName['地形'] = '地形'
+//pageButtonAsName['分析'] = '分析'
 
 //END
 //-----------------------------------
