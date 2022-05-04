@@ -100,6 +100,10 @@
             
             <div class="rounded-xl bg-zinc-600 overflow-hidden">
                 <!-- 图片标题 -->
+
+                <!-- 废弃！废弃！废弃！废弃！废弃！废弃！-->
+                <!-- 废弃！废弃！废弃！废弃！废弃！废弃！-->
+                <!-- 废弃！废弃！废弃！废弃！废弃！废弃！-->
                 {#if pageMain == '分析'}
                 <a href={item.type} target="_blank">
                     <!-- TEXT分支 -->
@@ -115,10 +119,14 @@
                     {/if}
                     <!-- end TEXT分支 -->
                 </a>
+                <!-- 废弃！废弃！废弃！废弃！废弃！废弃！-->
+                <!-- 废弃！废弃！废弃！废弃！废弃！废弃！-->
+                <!-- 废弃！废弃！废弃！废弃！废弃！废弃！-->
+
                 {:else}
                 <!-- 图片 -->
                     {#if item.finGameUrl == null}
-                        <div class="relative"
+                        <div class="relative h-24 sm:h-auto overflow-hidden"
                         on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}>
                             <img class="hover:opacity-80" src="/stockPageImg/textBackground.jpg" alt={item.name}>
                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
@@ -130,7 +138,7 @@
                         on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}/>
                     {/if}
                 {/if}
-
+                        
                 {#if pageMain != '梗图'}
 
                 <div class="my-3 flex justify-center items-center">
