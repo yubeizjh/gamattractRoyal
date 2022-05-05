@@ -87,7 +87,7 @@ $: paginatedItems = paginate({ items, pageSize, currentPage })
 //pageButton的名字
 
 //let pageButton = ['物件','情景','关卡','分析']
-let pageButton = ['关卡','情景','结构','物件','地形']
+let pageButton = ['情景','关卡','结构','物件','地形']
 let pageMain = pageButton[0]
 
 let pageButtonAsName = []

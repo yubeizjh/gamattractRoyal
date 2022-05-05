@@ -323,8 +323,8 @@ pageButtonAsName['结构'] = '结构'
 pageButtonAsName['地形'] = '地形'
 
 function buildButton(data){
-    if (data.关卡) pageButton.push("关卡")
     if (data.情景) pageButton.push("情景")
+    if (data.关卡) pageButton.push("关卡")
     if (data.结构) pageButton.push("结构")
     if (data.物件) pageButton.push("物件")
     if (data.地形) pageButton.push("地形")
