@@ -29,7 +29,14 @@
         <input class="block w-full mb-3 required" type="text" bind:value={inDetail} placeholder="详情">
         <input class="block w-full mb-3 required" type="text" bind:value={inUrl} placeholder="路径（只需要文件名，不需要后缀）">
         <input class="block w-full mb-3 required" type="text" bind:value={inTime} placeholder="发布时间">
-
+        <label class="block w-full mb-3 text-white">
+          <input type="checkbox" bind:checked={isReady}>
+          is ready?
+        </label>
+        <label class="block w-full mb-3 text-white">
+          <input type="checkbox" bind:checked={isGame}>
+          is game?
+        </label>
         <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={() => submit = false}>
         提交
         </button>  
@@ -98,6 +105,8 @@ let inTitle = null
 let inDetail = null
 let inUrl = null
 let inTime = null
+let isReady = true
+let isGame = false
 
 let submit = false
 
@@ -114,7 +123,9 @@ const { data, error } = await supabase
         'title': inTitle,
         'detail': inDetail,
         'blogUrl': inUrl,
-        'updateTime': inTime
+        'updateTime': inTime,
+        'ready': isReady,
+        'forGame': isGame
     }
     ])
 if (error) throw new Error(error.message) 

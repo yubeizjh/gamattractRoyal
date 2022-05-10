@@ -5,11 +5,11 @@
   let pageTitle = null;
 
   const nav = [
-    {title: "看一看", path: "/"},
+    //{title: "看一看", path: "/"},
     {title: "干货", path: "/gallery"},
     {title: "文章", path: "/blog"},
-    {title: "瞟一眼", path: "/lucky"},
-    {title: "树洞", path: "/message"}
+    //{title: "瞟一眼", path: "/lucky"},
+    {title: "留言", path: "/message"}
   ]
 
   let smNavFlag = false

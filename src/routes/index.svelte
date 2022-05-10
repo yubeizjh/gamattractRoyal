@@ -62,7 +62,7 @@ import DefaultLoading from "./DIY/defaultLoading.svelte";
 import { supabase } from "../supabaseClient"
 
 let targetGame = '塞尔达：御天之剑'
-let targetBlog = '开放世界的具体设计'
+let targetBlog = '开放世界的层次'
 
 async function getGameInfo () {
     const { data , error } = await supabase
