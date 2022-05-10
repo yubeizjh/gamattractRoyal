@@ -7,7 +7,7 @@
   const nav = [
     //{title: "看一看", path: "/"},
     {title: "干货", path: "/gallery"},
-    {title: "文章", path: "/blog"},
+    {title: "想法", path: "/blog"},
     //{title: "瞟一眼", path: "/lucky"},
     {title: "留言", path: "/message"}
   ]
@@ -24,7 +24,7 @@
   <div class="flex items-center">
     <!-- P1 -->
     <a class="flex flex-none items-center" href="/">
-      <img class="mr-5" src="/logo-web.png" alt="">
+      <img class="hover:cursor-pointer mr-5" src="/logo-web.png" alt="">
       <p class="text-sm hidden md:block text-stone-300 leading-[1.45rem]">
         <strong>GAM<br>A<br>TTRACT</strong>
       </p>

@@ -7,7 +7,10 @@
         </div>
     </div>
 
-    <p class="text-2xl italic my-8 mt-12">~ 干货 ~</p>
+    <a href="/gallery" class="group my-8 -mt-2">
+        <p class="text-center text-2xl italic my-8 mt-12">~ <i class="fa-solid fa-utensils"></i> 干货 ~</p>
+        <p class="text-center text-xl italic my-8 -mt-5 group-hover:no-underline underline-offset-2 underline">READ MORE</p>
+    </a>
 
     {#await getGameInfo()}
     <DefaultLoading />
@@ -24,7 +27,10 @@
     {/await}
 
 
-    <p class="text-2xl italic my-8 mt-20">~ 文章 ~</p>
+    <a href="/blog" class="group my-8">
+        <p class="text-center text-2xl italic my-8 mt-12">~ <i class="fa-solid fa-pen-nib"></i> 想法 ~</p>
+        <p class="text-center text-xl italic my-8 -mt-5 group-hover:no-underline underline-offset-2 underline">READ MORE</p>
+    </a>
 
     {#await getBlogInfo()}
     <DefaultLoading />
