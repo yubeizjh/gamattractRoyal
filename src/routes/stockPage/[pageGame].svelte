@@ -16,6 +16,10 @@
         {#if focusComment != null}
             <p class="mt-5 text-white text-center">{focusComment}</p>
         {/if}
+
+        {#if focusId != null}
+            <p class="mt-5 text-zinc-600 text-center">id: {focusId}</p>
+        {/if}
     </div>
 </div>
 {/if}
@@ -127,7 +131,7 @@
                 <!-- 图片 -->
                     {#if item.finGameUrl == null}
                         <div class="relative h-24 sm:h-auto overflow-hidden"
-                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}>
+                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}>
                             <img class="hover:opacity-80" src="/stockPageImg/textBackground.jpg" alt={item.name}>
                             <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                                 <p class="text-white text-xl"> {item.name} </p>
@@ -135,7 +139,7 @@
                         </div>
                     {:else}
                         <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
-                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1)}/>
+                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
                     {/if}
                 {/if}
                         
@@ -287,17 +291,19 @@ let focusSwitch = false
 let focusUrl = ''
 let focusTitle = ''
 let focusComment = ''
+let focusId = ''
 
 function closeFocus(){
     focusUrl = focusTitle = focusComment = ''
     focusSwitch = false
 }
 
-function openFocus(url, title, comment){
+function openFocus(url, title, comment, id){
     focusUrl = url
     focusTitle = title
     focusComment = comment
     focusSwitch = true
+    focusId = id
 }
 
 async function getGameInfo () {
