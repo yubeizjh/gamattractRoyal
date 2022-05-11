@@ -43,6 +43,8 @@
 
             <button class="bg-orange-600 mb-5 place-content-center grid m-auto w-1/4" on:click={switchIsText}>切换为文字</button>
 
+            <button class="bg-blue-600 mb-5 place-content-center grid m-auto w-1/4" on:click={switchIsUpdateImg}>更新图片</button>
+
             <!-- 
             let textMain = '结构'
             let textType = '综合'
@@ -58,6 +60,11 @@
                 <input class="block w-full mb-3" type="text" bind:value={textName} placeholder="你想说什么">
                 <input class="block w-full mb-3" type="text" bind:value={textPid} placeholder="pid一般都是1">
                 <input class="block w-full mb-3" type="text" bind:value={textComment} placeholder="你想附加什么">
+            {:else if isUpdateImg}
+                <input class="block w-full mb-3" type="text" bind:value={inTempId} placeholder="更新id">
+                <p class="text-white">预览：{preIdUrl}</p>
+                <button class="mb-5 mt-10 block w-full bg-green-800 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={getPreIdUrl}>
+                    预览</button>
             {:else}
                 <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
                 <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
@@ -67,8 +74,9 @@
             {/if}
 
             <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={submitF}>
-            提交
-            </button>  
+                提交
+            </button> 
+
             <button class="mt-10 block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={initRaw}>
                 初始化</button>
         </form>
@@ -90,7 +98,17 @@
             {:catch error}
                 <p class="text-orange-600">Something went wrong while sending the data:</p>
                 <pre>{error}</pre>
-            {/await}        
+            {/await}   
+        {:else if isUpdateImg}    
+            {#await updatePic(inTempId)}
+                <p>Sending data...</p>
+            {:then data}
+                <p class="text-green-600">Successfully sent data.</p>
+                <button on:click={initText} class="p-5 bg-green-500">初始化一下</button>
+            {:catch error}
+                <p class="text-orange-600">Something went wrong while sending the data:</p>
+                <pre>{error}</pre>
+            {/await}    
         {:else}
             {#each myId as item}
                 {#await sendData(item)}
@@ -138,6 +156,10 @@ let test = 0;
 let gameName = ""
 let gameUrl = "";
 
+let isUpdateImg = false
+
+let inTempId = null;
+
 //Main+Type+Name+(pid)
 //Main: 1-关卡；2-物件；3-梗图；4-情景
 
@@ -152,6 +174,8 @@ let myId = [];
 
 let countI = 0;
 let countJ = 0;
+
+let preIdUrl = null;
 
 let bindGame = '';
 let bindGamelast = '';
@@ -180,7 +204,13 @@ let fullGameList = []
 let nowLength = 0
 
 function switchIsText(){
+    isUpdateImg = false
     isText = !isText
+}
+
+function switchIsUpdateImg(){
+    isText = false
+    isUpdateImg = !isUpdateImg
 }
 
 function pushItem(item){
@@ -297,6 +327,11 @@ function initText() {
     textComment = ''
 }
 
+
+function initTempId() {
+    inTempId = null
+}
+
 async function getGameData() {
     const {data,error} = await supabase
         .from ('stock')
@@ -304,6 +339,26 @@ async function getGameData() {
         .not('name_img','eq', null)
     if (error) throw new Error(error.message) 
     return data
+}
+
+async function updatePic (tmp_id) {
+    if (securityCode != "zjh") throw new Error("密码错了兄弟")
+    const { data , error } = await supabase
+    .from ('stockImg')
+    .update({finGameUrl: idUrl(tmp_id)})
+    .match({id: tmp_id})
+    if (error) throw new Error(error.message)
+    return data 
+}
+
+function idUrl(id){
+    let str = gameUrl
+    str = str + id + '.jpg'
+    return str
+}
+
+function getPreIdUrl(){
+    preIdUrl = idUrl(inTempId)
 }
 
 </script>
