@@ -5,9 +5,9 @@
 <div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
   {#each pageButton as item}
       {#if item == pageMain}
-          <button class="btn w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
+          <button class="btn w-1/6 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
       {:else}
-          <button class="btn w-1/5 text-zinc-200 bg-zinc-900 hover:bg-black" 
+          <button class="btn w-1/6 text-zinc-200 bg-zinc-900 hover:bg-black" 
           on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
       {/if}
   {/each}
@@ -87,15 +87,22 @@ $: paginatedItems = paginate({ items, pageSize, currentPage })
 //pageButton的名字
 
 //let pageButton = ['物件','情景','关卡','分析']
-let pageButton = ['情景','关卡','结构','物件','地形']
+let pageButton = ['结构','关卡','主题','物件','情景','地形']
 let pageMain = pageButton[0]
 
 let pageButtonAsName = []
-pageButtonAsName['物件'] = '物件'
-pageButtonAsName['情景'] = '情景'
-pageButtonAsName['关卡'] = '小POI'
+
 pageButtonAsName['结构'] = '结构'
+pageButtonAsName['关卡'] = '中POI'
+
+pageButtonAsName['主题'] = '主题'
+pageButtonAsName['物件'] = '物件'
+
+pageButtonAsName['情景'] = '情景'
 pageButtonAsName['地形'] = '地形'
+
+pageButtonAsName['梗图'] = '233'
+
 //pageButtonAsName['分析'] = '分析'
 
 //END

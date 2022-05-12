@@ -39,9 +39,9 @@
         <div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
             {#each pageButton as item}
                 {#if item == pageMain}
-                    <button class="btn px-8 w-1/5 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
+                    <button class="btn px-8 w-1/6 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
                 {:else}
-                    <button class="btn px-8 w-1/5 text-zinc-200 bg-zinc-900 hover:bg-black" 
+                    <button class="btn px-8 w-1/6 text-zinc-200 bg-zinc-900 hover:bg-black" 
                     on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
                 {/if}
             {/each}
@@ -320,21 +320,27 @@ async function getGameInfo () {
 //pageButton的名字
 
 let pageButtonAsName = []
-pageButtonAsName['物件'] = '物件'
-pageButtonAsName['情景'] = '情景'
-pageButtonAsName['关卡'] = '小POI'
-//pageButtonAsName['分析'] = '分析'
-pageButtonAsName['梗图'] = '233'
 pageButtonAsName['结构'] = '结构'
+pageButtonAsName['关卡'] = '中POI'
+
+pageButtonAsName['主题'] = '主题'
+pageButtonAsName['物件'] = '物件'
+
+pageButtonAsName['情景'] = '情景'
 pageButtonAsName['地形'] = '地形'
 
+pageButtonAsName['梗图'] = '233'
+
 function buildButton(data){
-    if (data.情景) pageButton.push("情景")
-    if (data.关卡) pageButton.push("关卡")
     if (data.结构) pageButton.push("结构")
+    if (data.关卡) pageButton.push("关卡")
+
+    if (data.主题) pageButton.push("主题")
     if (data.物件) pageButton.push("物件")
+
+    if (data.情景) pageButton.push("情景")
     if (data.地形) pageButton.push("地形")
-    //if (data.分析) pageButton.push("分析")
+    
     if (data.梗图) pageButton.push("梗图")
 
     let flag = false;
