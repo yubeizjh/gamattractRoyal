@@ -65,6 +65,7 @@
         {#each fullData.slice(0,currentItem) as item}
         -->
         {#each data as item}
+            <p class="hidden">{compareFlagIdentity(item.flag_identity,item.flag)}</p>
         <!-- 按type添加标题 -->
             {#if item.flag == 1}
                 <div class="my-20 mb-3 col-span-1 sm:col-span-2 md:col-span-3">
@@ -73,7 +74,9 @@
                             <span class="bg-zinc-800 px-5" >
                                 {#if pageMain == '梗图'} xs
                                 {:else if pageMain == '分析'} 文章
-                                {:else} {item.type}
+                                {:else}
+                                    <span>{item.type}</span>
+                                    <span class="text-sm">{maxFlagIdentity[item.flag_identity]}项</span>
                                 {/if}
                             </span>
                         </div>
@@ -82,7 +85,9 @@
                             <span class="bg-zinc-800 px-5" >
                                 {#if pageMain == '梗图'} xs
                                 {:else if pageMain == '分析'} 文章
-                                {:else} {item.type}
+                                {:else} 
+                                    <span>{item.type}</span>
+                                    <span class="text-sm">{maxFlagIdentity[item.flag_identity]}项</span>
                                 {/if}
                             </span>
                         </div>
@@ -140,18 +145,17 @@
                             </div>
                         </div>
                     {:else}
-                        <div class="relative">
+                        <div class="hover:opacity-50 relative cursor-pointer" 
+                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}> 
                             <img src="/stockPageImg/textBackground.jpg" alt={item.name}>
                             <div class="absolute bottom-0 left-0 h-full w-full flex items-center justify-center bg-zinc-900">
-                                <img class="h-full cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
-                                on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
+                                <img class="h-full" src={item.finGameUrl} alt={item.name}/>
                             </div>
-                            
-                            <!--
-                            <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
-                            on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
-                            -->
                         </div>
+                        <!--
+                        <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
+                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
+                        -->
                     {/if}
                 {/if}
                         
@@ -283,6 +287,13 @@ let pageMain
 let inComment_1
 let option = []
 let startUpdate = []
+let maxFlagIdentity = []
+
+function compareFlagIdentity (keyword, i){
+    if (maxFlagIdentity[keyword] == null) maxFlagIdentity[keyword] = 1;
+    else if (maxFlagIdentity[keyword] < i)
+        maxFlagIdentity[keyword] = i;
+}
 
 let fromAnotherPage = $pageStore
 
