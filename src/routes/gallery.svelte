@@ -2,18 +2,28 @@
 <!-- 游戏发售时间 -->
 <!-- 游戏列表，处理行列数量 -->
 
-<div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
-  {#each pageButton as item}
-      {#if item == pageMain}
-          <button class="whitespace-nowrap btn w-1/6 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
-      {:else}
-          <button class="whitespace-nowrap btn w-1/6 text-zinc-200 bg-zinc-900 hover:bg-black" 
-          on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
-      {/if}
-  {/each}
+{#if enableFilter}
+  <div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
+    {#each pageButton as item}
+        {#if item == pageMain}
+            <button class="whitespace-nowrap btn w-1/6 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
+        {:else}
+            <button class="whitespace-nowrap btn w-1/6 text-zinc-200 bg-zinc-900 hover:bg-black" 
+            on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
+        {/if}
+    {/each}
+  </div>
+{/if}
+
+<div class="px-1 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
+  <button class="btn w-full bg-zinc-900 text-white hover:bg-zinc-200 hover:text-black" on:click={changeFilter}>
+    {#if !enableFilter}
+      开启筛选
+    {:else}
+      关闭筛选
+    {/if}
+  </button>
 </div>
-
-
 
 {#if refreshTrigger}  
 {#await getAllGallery()}
@@ -26,7 +36,7 @@
     <p class="hidden">good Job {catchData(data)}</p>
 
     <!-- body -->
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
+    <div class="grid grid-cols-3 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
     {#each paginatedItems as item}
         {#if pageMain == '施工中'}
@@ -75,7 +85,14 @@ import {pageStore} from "./stores"
 let currentItems = 6
 let items = []
 let currentPage = 1
-let pageSize = 6
+let pageSize = 12
+
+let enableFilter = false;
+
+function changeFilter(){
+  enableFilter = !enableFilter
+    infoRefresh();
+}
 
 function toAnotherPage(){
   pageStore.set(pageMain)
@@ -109,12 +126,18 @@ pageButtonAsName['梗图'] = '233'
 //-----------------------------------
 
 async function getAllGallery () {
-    const { data , error } = await supabase
+  let query = supabase
     .from ('stock')
     .select ()
-    .eq(pageMain, true)
-    if (error) throw new Error(error.message)
-    return data 
+    .is("施工中",false)
+
+  if(enableFilter)
+    query = query.eq(pageMain, true)
+
+  const { data , error } = await query
+    
+  if (error) throw new Error(error.message)
+  return data 
 }
 
 function catchData (tmp){
