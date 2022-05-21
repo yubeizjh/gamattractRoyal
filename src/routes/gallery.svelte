@@ -5,9 +5,9 @@
 <div class="flex justify-center btn-group my-5 mx-4 md:m-auto md:my-5 md:w-3/4 lg:w-1/2">
   {#each pageButton as item}
       {#if item == pageMain}
-          <button class="btn w-1/6 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
+          <button class="whitespace-nowrap btn w-1/6 bg-zinc-200 text-black hover:bg-zinc-200 hover:text-black">{pageButtonAsName[item]}</button>
       {:else}
-          <button class="btn w-1/6 text-zinc-200 bg-zinc-900 hover:bg-black" 
+          <button class="whitespace-nowrap btn w-1/6 text-zinc-200 bg-zinc-900 hover:bg-black" 
           on:click={() => changePageMain(item)}>{pageButtonAsName[item]}</button>
       {/if}
   {/each}
