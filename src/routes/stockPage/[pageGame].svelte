@@ -10,7 +10,9 @@
         {/if}
 
         {#if focusTitle != '0'}
-            <p class="mt-5 text-white text-xl text-center">{focusTitle}</p>
+            {#if focusTitle != '隐藏'}
+                <p class="mt-5 text-white text-xl text-center">{focusTitle}</p>
+            {/if}
         {/if}
         
         {#if focusComment != null}
@@ -138,8 +140,18 @@
                             </div>
                         </div>
                     {:else}
-                        <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
-                        on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
+                        <div class="relative">
+                            <img src="/stockPageImg/textBackground.jpg" alt={item.name}>
+                            <div class="absolute bottom-0 left-0 h-full w-full flex items-center justify-center bg-zinc-900">
+                                <img class="h-full cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
+                                on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
+                            </div>
+                            
+                            <!--
+                            <img class="cursor-pointer hover:opacity-50" src={item.finGameUrl} alt={item.name}
+                            on:click={() => openFocus(item.finGameUrl,item.name,item.comment_1,item.id)}/>
+                            -->
+                        </div>
                     {/if}
                 {/if}
                         
@@ -147,11 +159,13 @@
 
                 <div class="my-3 flex justify-center items-center">
                     <div class="items-center">
-                        {#if item.finGameUrl != null}
-                            <span class="text-xl mr-2">{item.name}</span>
-                        {/if}
-                        {#if item.pid != 1}
-                            <span>{item.pid}</span>
+                        {#if item.name != "隐藏"}
+                            {#if item.finGameUrl != null}
+                                    <span class="text-xl mr-2">{item.name}</span>
+                                {/if}
+                            {#if item.pid != 1}
+                                <span>{item.pid}</span>
+                            {/if}
                         {/if}
                     </div>
                     <!-- 更改按钮 -->
