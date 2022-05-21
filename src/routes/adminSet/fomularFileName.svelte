@@ -8,6 +8,8 @@
   {/each}
 {/await}
 
+{testMount}
+
 {#if flag}
   <p class="text-3xl text-orange-700">已更新过</p>
 {:else}
@@ -29,7 +31,7 @@
     {#each fullData as item}
       {#if item.gameUrl != 'text'}
         {#await updateDate(item.id, item.gameUrl)}
-            <p class="mb-3">{item.id}/{fullData.length} Updating...</p>
+            <p class="mb-3">id:{item.id} Updating...</p>
         {:then data}
             <p class="text-green-600 mb-3">{item.id}/{fullData.length} Success.</p>
         {:catch error}
@@ -104,15 +106,24 @@ function updateAllData(){
   startUpdate = true;
 }
 
+let testMount = 0
+
 function copyData(item){
-  if (item.finGameUrl != null)
+  if (item.gameUrl == null)
+    return
+
+  if (item.finGameUrl != null){
     flag = true
+    return
+  }
+
+  testMount += 1
 
   fullData[currentLength] = item
 
   let name = fullData[currentLength].gameUrl
   let id = fullData[currentLength].id
-
+  
   if (name != 'text'){
   
     let A_start = item.gameUrl.lastIndexOf('/') + 1
@@ -120,7 +131,6 @@ function copyData(item){
     let A = item.gameUrl.substring(A_start,A_end)
 
     fullData[currentLength].fileName = A
-
 
     let B_start = item.gameUrl.indexOf(".")
     let B_end = item.gameUrl.length
@@ -138,7 +148,6 @@ function copyData(item){
 
     fullData[currentLength].gameUrl = 'text'
   }
-
 
   currentLength = currentLength + 1
 }

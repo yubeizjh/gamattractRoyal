@@ -1,16 +1,19 @@
 <!-- 
-老子有空一定要来升级
-<div class="text-black m-auto w-1/2 my-10">
-    <input class="block w-full mb-10" type="text" bind:value={gameUrl} placeholder="行1">
-    <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
-    <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
-    <input class="block w-full mb-3" type="text" bind:value={rawString[2]} placeholder="行3">
-    <input class="block w-full mb-3" type="text" bind:value={rawString[3]} placeholder="行4">
-    <input class="block w-full mb-3" type="text" bind:value={rawString[4]} placeholder="行5">
-    <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={getResult}>
-    转化</button>
-    <button class="mt-5 block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={initRaw}>
-    初始化</button>
+<input class="block w-full mb-3 text-black" type="text" bind:value={testString} placeholder="试一试">
+<textarea class="block w-full mb-3 text-black" type="text" bind:value={testStringPreview} placeholder="试一试"></textarea>
+
+<button class="bg-orange-600 mb-5 place-content-center grid m-auto w-1/4" on:click={testCutString}>测试切换</button>
+
+<div>
+{#each testStringGroup as item}
+    <div class="my-5">
+        <p class="text-green-600"> {item} </p>
+        <p>{getSubString(item,"main")}</p>
+        <p>{getSubString(item,"type")}</p>
+        <p>{getSubString(item,"name")}</p>
+        <p>{getSubString(item,"pid")}</p>
+    </div>
+{/each}
 </div>
 -->
 
@@ -66,11 +69,32 @@
                 <button class="mb-5 mt-10 block w-full bg-green-800 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={getPreIdUrl}>
                     预览</button>
             {:else}
+                <!-- 
                 <input class="block w-full mb-3" type="text" bind:value={rawString[0]} placeholder="行1">
                 <input class="block w-full mb-3" type="text" bind:value={rawString[1]} placeholder="行2">
                 <input class="block w-full mb-3" type="text" bind:value={rawString[2]} placeholder="行3">
                 <input class="block w-full mb-3" type="text" bind:value={rawString[3]} placeholder="行4">
                 <input class="block w-full mb-3" type="text" bind:value={rawString[4]} placeholder="行5">
+                -->
+                <input class="block w-full mb-3" type="text" bind:value={rawString_Long} placeholder="直接复制">
+                <textarea disabled class="bg-zinc-400 text-black h-32 block w-full mb-3" type="text" bind:value={rawString_LongPreview} placeholder="直接复制"></textarea>
+                <button class="mb-5 block w-full bg-green-600 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={rawCutString}>
+                    预览
+                </button> 
+                
+                <!-- 
+                <button class="mb-5 block w-full bg-orange-600 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" on:click={getResult}>
+                    预览操作
+                </button> 
+
+                {#each myId as item}
+                    <div class="text-white">
+                        <p class="hidden">{testShow(item)}</p>
+                        {testShowGroup[item]}
+                    </div>
+                {/each}
+                -->
+
             {/if}
 
             <button class="block w-full bg-zinc-500 hover:bg-zinc-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Submit" on:click={submitF}>
@@ -109,7 +133,7 @@
                 <p class="text-orange-600">Something went wrong while sending the data:</p>
                 <pre>{error}</pre>
             {/await}    
-        {:else}
+        {:else if submitDoubleCheck}
             {#each myId as item}
                 {#await sendData(item)}
                 <p>Sending data...</p>
@@ -124,6 +148,7 @@
     {/if}
   </div>
 
+  <!-- 
 <div>
     {test}
     {#each resultMain as item}
@@ -142,10 +167,36 @@
         <p>{item}</p>
     {/each}
 </div>
-
+-->
 
 
 <script>
+import { each } from "svelte/internal";
+
+/*
+let testString = "4+丢石头+隐藏(1.png 4+丢石头+隐藏(2.png 4+丢石头+隐藏(3.png";
+let testStringPreview
+let testStringGroup = [];
+
+function testCutString(){
+    testStringPreview = testString
+    testStringPreview = testStringPreview.replace(/ /g,"\n")
+    testStringGroup = testString.split(" ")
+}
+*/
+
+let rawString_Long
+let rawString_LongPreview
+
+let timeDelay = 0
+
+
+
+function rawCutString(){
+    rawString_LongPreview = rawString_Long.replace(/ /g,"\n")
+    rawString = rawString_Long.split(" ")
+}
+
 import { supabase } from "../../supabaseClient"
 
 let submit = false
@@ -174,6 +225,8 @@ let myId = [];
 
 let countI = 0;
 let countJ = 0;
+
+let submitDoubleCheck = false;
 
 let preIdUrl = null;
 
@@ -227,6 +280,7 @@ function getResult(){
         myId[i] = i;
         test = test+1
     }
+    submitDoubleCheck = true
 }
 
 function getSubString (str, type) {
@@ -236,10 +290,13 @@ function getSubString (str, type) {
         startStr = 0;
         endStr = str.indexOf("+");
         let tmpStr = str.substring(startStr,endStr);
-        if (tmpStr === "1") return "关卡"
-        else if (tmpStr === "2") return "物件"
-        else if (tmpStr === "3") return "梗图"
-        else return "情景"
+        //1结构; 2关卡; 3主题; 4物件; 5情景; 6地形
+        if (tmpStr === "1") return "结构"
+        else if (tmpStr === "2") return "关卡"
+        else if (tmpStr === "3") return "主题"
+        else if (tmpStr === "4") return "物件"
+        else if (tmpStr === "5") return "情景"
+        else if (tmpStr === "6") return "地形"
     }
     if (type === "type"){
         startStr = str.indexOf("+") + 1
@@ -248,13 +305,14 @@ function getSubString (str, type) {
     else if (type === "name"){
         startStr = str.lastIndexOf("+") + 1
         let endStr_A = str.indexOf(".")
-        let endStr_B = str.indexOf(" ")
+        let endStr_B = str.indexOf("(")
         if (endStr_B > 1) endStr = endStr_B
         else endStr = endStr_A
     }
     else {
         startStr = str.indexOf("(") + 1
         endStr = str.indexOf(")")
+        if (endStr == -1) endStr = str.indexOf(".")
         if (startStr <= 1){
             return "1"
         }
@@ -274,13 +332,27 @@ function initRaw() {
 }
 
 function submitF() {
-    if (!isText)
+    if (!isText && !isUpdateImg)
         getResult();
     submit = false;
 }
 
+/*
+let testShowGroup = []
+
+function testDelayShow(id){
+    testShowGroup[id] = id
+}
+
+function testShow(id){
+    setTimeout(function(){testDelayShow(id);},timeDelay)
+    timeDelay += 1000
+}
+*/
+
 async function sendData(i) {
   if (securityCode != "zjh") throw new Error("密码错了兄弟")
+
   const { data, error } = await supabase
     .from('stockImg')
     .insert([

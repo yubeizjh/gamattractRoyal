@@ -23,9 +23,12 @@
     </div>
     <div class="text-zinc-400 italic">
         【Main+Type+Name+(pid)】<br>
-        Main: 1-关卡；2-物件；3-梗图；4-情景;5-结构；6-地形<br>
+        1结构; 2关卡; 3主题; 4物件; 5情景; 6地形<br>
+        不要空格<br>
         类型+沙漠+仙人掌.jpeg<br>
-        类型+沙漠+仙人掌 (2).jpeg<br>
+        类型+沙漠+仙人掌(2).jpeg<br>
+        或者，不要最后的括号<br>
+        4+丢石头+隐藏(2.jpg<br>
     </div>
     <br>
 
