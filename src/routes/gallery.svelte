@@ -36,7 +36,7 @@
     <p class="hidden">good Job {catchData(data)}</p>
 
     <!-- body -->
-    <div class="grid grid-cols-3 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:w-3/4 gap-3 m-auto p-3">
 
     {#each paginatedItems as item}
         {#if pageMain == '施工中'}
@@ -132,6 +132,7 @@ async function getAllGallery () {
     .is("施工中",false)
 
   if(enableFilter)
+
     query = query.eq(pageMain, true)
 
   const { data , error } = await query
