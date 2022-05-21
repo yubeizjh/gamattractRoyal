@@ -177,7 +177,11 @@
                         <button class="h-6 w-6 ml-3 rounded-full bg-zinc-500 hover:bg-zinc-700 text-white" 
                         on:click={() => openComment(item.id, 1)}>
                         {#if item.comment_1 == null}
-                            <i class="fa-solid fa-plus"></i>
+                            {#if tmpComment[item.id] == null}
+                                <i class="fa-solid fa-plus"></i>
+                            {:else}
+                                <i class="fa-solid fa-pen fa-sm"></i>
+                            {/if}
                         {:else}
                             <i class="fa-solid fa-pen fa-sm"></i>
                         {/if}
@@ -192,12 +196,14 @@
                 <!-- 图片内容 -->
                 {#if item.comment_1 != null}
                     <div class="text-center mb-3 mx-2">
-                        {#if tmpComment[item.id] == null}
-                            <span>{item.comment_1}</span>
-                        {:else}
-                            <span>{tmpComment[item.id]}</span>
-                        {/if}
+                        <span>{item.comment_1}</span>
                     </div>
+                {:else}
+                <div class="text-center mb-3 mx-2">
+                    {#if tmpComment[item.id] != null}
+                        <span>{tmpComment[item.id]}</span>
+                    {/if}
+                </div>
                 {/if}
                 <!-- 修改框 -->
                 {#if option[item.id] == 1}
