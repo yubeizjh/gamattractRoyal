@@ -88,6 +88,8 @@ async function getData() {
     const { data, error } = await supabase
       .from('stockImg')
       .select()
+      .not("gameUrl","is","null")
+      .is("finGameUrl",null)
       .order ("id")
     if (error) throw new Error(error.message)
     return data
@@ -109,6 +111,7 @@ function updateAllData(){
 let testMount = 0
 
 function copyData(item){
+
   if (item.gameUrl == null)
     return
 
