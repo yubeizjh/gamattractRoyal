@@ -7,9 +7,11 @@
         </div>
     </div>
 
-    <a href="/gallery" class="group my-8 -mt-2">
-        <p class="text-center text-2xl italic my-8 mt-12">~ <i class="fa-solid fa-utensils"></i> 干货 ~</p>
+    <a href="/gallery" class="group mt-6 mb-8">
+        <p class="text-center text-2xl italic"><i class="fa-solid fa-utensils"></i></p>
+        <!-- 
         <p class="text-center text-xl italic my-8 -mt-5 group-hover:no-underline underline-offset-2 underline">READ MORE</p>
+        -->
     </a>
 
     {#await getGameInfo()}
@@ -28,8 +30,10 @@
 
 
     <a href="/blog" class="group my-8">
-        <p class="text-center text-2xl italic my-8 mt-12">~ <i class="fa-solid fa-pen-nib"></i> 想法 ~</p>
+        <p class="text-center text-2xl italic"><i class="fa-solid fa-pen-nib"></i></p>
+        <!-- 
         <p class="text-center text-xl italic my-8 -mt-5 group-hover:no-underline underline-offset-2 underline">READ MORE</p>
+        -->
     </a>
 
     {#await getBlogInfo()}
@@ -50,7 +54,7 @@
         <pre>{error}</pre>
     {/await}
 
-    <div class="my-8 mt-20 w-full">
+    <div class="my-8 mt-12 w-full">
         <div class="h-4 w-full border-b-2 text-center text-lg border-white">
             <span class="bg-zinc-800 px-3" >
                 Bon appétit
