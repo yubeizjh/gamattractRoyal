@@ -1,5 +1,13 @@
 <script>
     export let title;
+
+    import { onMount } from 'svelte';
+
+    onMount(() => {
+        let len = document.getElementsByTagName("details").length;
+        for (let i=0;i<len;i++)
+        document.getElementsByTagName("details")[i].removeAttribute("open");
+    });
 </script>
 
 <svelte:head>
