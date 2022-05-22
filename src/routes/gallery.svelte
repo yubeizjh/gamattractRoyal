@@ -46,8 +46,11 @@
             </div>
         {:else}
             <a on:click={toAnotherPage} href="/stockPage/{item.name_img}"
-            class="overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
+            class="relative overflow-hidden transform duration-500 rounded-2xl border-[6px] border-white/0 hover:border-white hover:animate-pulse">
               <img src={item.imgUrl} alt={item.game}/>
+              {#if item.favorite}
+                <i style="color: Tomato;" class="absolute left-3 top-7 fa-solid fa-bookmark fa-2xl"></i>
+              {/if}
             </a>
         {/if}
     {/each}
@@ -130,6 +133,7 @@ async function getAllGallery () {
     .from ('stock')
     .select ()
     .is("施工中",false)
+    .order('favorite', { ascending: false })
 
   if(enableFilter)
 
